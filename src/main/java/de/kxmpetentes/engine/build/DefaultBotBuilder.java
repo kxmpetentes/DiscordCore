@@ -1,7 +1,8 @@
 package de.kxmpetentes.engine.build;
 
 import de.kxmpetentes.engine.DiscordCore;
-import de.kxmpetentes.engine.command.CommandListener;
+import de.kxmpetentes.engine.listener.CommandListener;
+import de.kxmpetentes.engine.listener.OnReadyListener;
 import de.kxmpetentes.engine.model.ConsoleColors;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -34,7 +35,8 @@ public class DefaultBotBuilder {
 
     private ShardManager shardManager;
 
-    public DefaultBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity, ArrayList<GatewayIntent> gatewayIntents, ArrayList<EventListener> eventListeners) {
+    public DefaultBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity,
+                             ArrayList<GatewayIntent> gatewayIntents, ArrayList<EventListener> eventListeners) {
         this.discordCore = discordCore;
         this.token = token;
         this.onlineStatus = onlineStatus;
@@ -52,11 +54,13 @@ public class DefaultBotBuilder {
     private void init() throws LoginException {
 
         DefaultShardManagerBuilder defaultShardManagerBuilder = DefaultShardManagerBuilder.create(token, gatewayIntents);
+        defaultShardManagerBuilder.enableIntents(GatewayIntent.GUILD_MESSAGES);
         defaultShardManagerBuilder.disableCache(CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
         defaultShardManagerBuilder.setMemberCachePolicy(MemberCachePolicy.ONLINE);
         defaultShardManagerBuilder.setActivity(activity);
         defaultShardManagerBuilder.setStatus(onlineStatus);
         defaultShardManagerBuilder.addEventListeners(new CommandListener(discordCore));
+        defaultShardManagerBuilder.addEventListeners(new OnReadyListener(discordCore));
 
         if (!eventListeners.isEmpty()) {
             for (EventListener eventListener : eventListeners) {

@@ -1,7 +1,12 @@
 package de.kxmpetentes.engine;
 
 import de.kxmpetentes.engine.command.CommandManager;
+import de.kxmpetentes.engine.config.JsonConfiguration;
+import de.kxmpetentes.engine.manager.MongoAPI;
 import de.kxmpetentes.engine.manager.TopGGManager;
+import de.kxmpetentes.engine.model.ConsoleColors;
+
+import java.io.File;
 
 /**
  * @author kxmpetentes
@@ -19,6 +24,7 @@ public class DiscordCore {
     private String botIconURL;
     private CommandManager commandManager;
     private TopGGManager topGGManager;
+    private boolean mongoDB = false;
 
     public DiscordCore(String prefix) {
         instance = this;
@@ -87,5 +93,45 @@ public class DiscordCore {
 
     public void setTopGGManager(TopGGManager topGGManager) {
         this.topGGManager = topGGManager;
+    }
+
+    public void enableMongoDB() {
+
+        JsonConfiguration jsonConfiguration;
+        File file = new File("config.json");
+
+        if (!file.exists()) {
+            jsonConfiguration = new JsonConfiguration();
+            jsonConfiguration.append("host", "localhost");
+            jsonConfiguration.append("port", 27017);
+            jsonConfiguration.append("user", "root");
+            jsonConfiguration.append("password", "bot");
+            jsonConfiguration.append("auth-database", "admin");
+            jsonConfiguration.append("database", "bot");
+
+            jsonConfiguration.saveAsConfig(file);
+            System.out.println(ConsoleColors.GREEN + "Created MongoDB Config!");
+
+            this.mongoDB = false;
+            return;
+        }
+
+        jsonConfiguration = JsonConfiguration.loadDocument(file);
+
+        System.out.println(ConsoleColors.RED + "Versuche MongoDB zu verbinden!");
+        try {
+            MongoAPI.connect(jsonConfiguration.getString("host"), jsonConfiguration.getInt("port"), jsonConfiguration.getString("user"),
+                    jsonConfiguration.getString("auth-database"), jsonConfiguration.getString("database"), jsonConfiguration.getString("password"));
+
+            this.mongoDB = true;
+
+        } catch (Exception e) {
+            System.out.println(ConsoleColors.RED + "MongoDB Client konnte sich nicht verbinden!");
+            this.mongoDB = false;
+        }
+    }
+
+    public boolean isMongoDBEnabled() {
+        return mongoDB;
     }
 }

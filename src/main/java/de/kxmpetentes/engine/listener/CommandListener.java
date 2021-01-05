@@ -1,4 +1,4 @@
-package de.kxmpetentes.engine.command;
+package de.kxmpetentes.engine.listener;
 
 import de.kxmpetentes.engine.DiscordCore;
 import de.kxmpetentes.engine.model.ConsoleColors;
@@ -28,6 +28,7 @@ public class CommandListener extends ListenerAdapter {
     public CommandListener(DiscordCore discordCore) {
         this.discordCore = discordCore;
         this.prefix = discordCore.getPrefix();
+
     }
 
     @Override
