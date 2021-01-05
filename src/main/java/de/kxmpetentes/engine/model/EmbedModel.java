@@ -36,7 +36,7 @@ public class EmbedModel {
         this.text = text;
     }
 
-    public EmbedModel(String title, String author, String image, Color color, String text, String thumbnail, Guild guild) {
+    public EmbedModel(String title, String author, String image, Color color, String text, String thumbnail, String footer) {
         this.title = title;
         this.author = author;
         this.image = image;
@@ -44,7 +44,7 @@ public class EmbedModel {
         this.text = text;
         this.thumbnail = thumbnail;
         this.timestep = OffsetDateTime.now();
-        this.footer = guild.getName();
+        this.footer = footer;
     }
 
     public EmbedModel createMessage() {
