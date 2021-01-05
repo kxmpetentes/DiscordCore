@@ -9,8 +9,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>DiscordCore</name>
-    <url>http://github.com/kxmpetentes/DiscordCore</url>
+    <name>DiscordEngine</name>
+    <url>http://github.com/kxmpetentes/DiscordEngine</url>
 
     <licenses>
         <license>
