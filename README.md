@@ -1,8 +1,10 @@
 ## JavaDocs and examples will follow soon. This project is just beginning
 
+[![](https://jitpack.io/v/kxmpetentes/DiscordEngine.svg)](https://jitpack.io/#kxmpetentes/DiscordEngine)
+
 Currently it's just a simple CommandHelper for the JDA. But there will be more features soon
 
-Maven Repository
+Maven
 
 ````xml
 <repositories>
@@ -14,9 +16,6 @@ Maven Repository
 
 </repositories>
 ````
-
-Maven Dependency
-
 ````xml
 <dependencies>
 
@@ -24,8 +23,23 @@ Maven Dependency
     <dependency>
         <groupId>com.github.kxmpetentes</groupId>
         <artifactId>DiscordEngine</artifactId>
-        <version>1.0</version>
+        <version>VERSION</version>
     </dependency>
 
 </dependencies>
+````
+
+Gradle
+````
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+````
+````
+dependencies {
+	        implementation 'com.github.kxmpetentes:DiscordEngine:VERSION'
+	}
 ````
