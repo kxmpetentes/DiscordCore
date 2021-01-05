@@ -26,8 +26,6 @@ public class DiscordCore {
         this.commandManager = new CommandManager();
     }
 
-    //ff4f93498a71887911a2bccb127cba87412d15a6 kxmpetentes
-
     public DiscordCore(String prefix, String botIconURL) {
         instance = this;
 
