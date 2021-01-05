@@ -1,4 +1,4 @@
-package de.kxmpetentes.engine.test;
+package de.kxmpetentes.engine.example;
 
 import de.kxmpetentes.engine.DiscordCore;
 import de.kxmpetentes.engine.build.DefaultBotBuilder;

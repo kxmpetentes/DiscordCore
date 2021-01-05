@@ -1,4 +1,4 @@
-package de.kxmpetentes.engine.test;
+package de.kxmpetentes.engine.example;
 
 import de.kxmpetentes.engine.command.CommandExecuter;
 import de.kxmpetentes.engine.command.CommandType;
