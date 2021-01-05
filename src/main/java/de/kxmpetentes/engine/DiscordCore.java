@@ -2,9 +2,11 @@ package de.kxmpetentes.engine;
 
 import de.kxmpetentes.engine.command.CommandManager;
 import de.kxmpetentes.engine.config.JsonConfiguration;
+import de.kxmpetentes.engine.manager.GuildCacheManager;
 import de.kxmpetentes.engine.manager.MongoAPI;
 import de.kxmpetentes.engine.manager.TopGGManager;
 import de.kxmpetentes.engine.model.ConsoleColors;
+import net.dv8tion.jda.api.JDA;
 
 import java.io.File;
 
@@ -25,6 +27,8 @@ public class DiscordCore {
     private CommandManager commandManager;
     private TopGGManager topGGManager;
     private boolean mongoDB = false;
+    private JDA jda;
+    private GuildCacheManager guildCacheManager;
 
     public DiscordCore(String prefix) {
         instance = this;
@@ -133,5 +137,21 @@ public class DiscordCore {
 
     public boolean isMongoDBEnabled() {
         return mongoDB;
+    }
+
+    public void setJda(JDA jda) {
+        this.jda = jda;
+    }
+
+    public JDA getJda() {
+        return jda;
+    }
+
+    public void setGuildCacheManager(GuildCacheManager guildCacheManager) {
+        this.guildCacheManager = guildCacheManager;
+    }
+
+    public GuildCacheManager getGuildCacheManager() {
+        return guildCacheManager;
     }
 }

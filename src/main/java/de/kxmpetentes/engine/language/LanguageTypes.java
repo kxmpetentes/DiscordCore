@@ -10,16 +10,36 @@ package de.kxmpetentes.engine.language;
 
 public enum LanguageTypes {
 
-    DE("German"),
-    EN("English");
+    DE("German", 0),
+    EN("English", 1);
 
     final String type;
+    final int id;
 
-    LanguageTypes(String type) {
+    LanguageTypes(String type, int id) {
         this.type = type;
+        this.id = id;
     }
 
     public String getType() {
         return type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @return languagetype
+     * @throws NullPointerException id can be null
+     */
+    public static LanguageTypes getTypeByID(int id) {
+        for (LanguageTypes language : values()) {
+            if (language.getId() == id) {
+                return language;
+            }
+        }
+
+        return null;
     }
 }
