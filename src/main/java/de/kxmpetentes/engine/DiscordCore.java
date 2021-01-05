@@ -1,6 +1,7 @@
 package de.kxmpetentes.engine;
 
 import de.kxmpetentes.engine.command.CommandManager;
+import de.kxmpetentes.engine.manager.TopGGManager;
 
 /**
  * @author kxmpetentes
@@ -17,6 +18,7 @@ public class DiscordCore {
     private String prefix;
     private String botIconURL;
     private CommandManager commandManager;
+    private TopGGManager topGGManager;
 
     public DiscordCore(String prefix) {
         instance = this;
@@ -40,6 +42,15 @@ public class DiscordCore {
         this.prefix = prefix;
         this.botIconURL = botIconURL;
         this.commandManager = commandManager;
+    }
+
+    public DiscordCore(String prefix, String botIconURL, CommandManager commandManager, String topGGToken, String botID) {
+        instance = this;
+
+        this.prefix = prefix;
+        this.botIconURL = botIconURL;
+        this.commandManager = commandManager;
+        this.topGGManager = new TopGGManager(topGGToken, botID);
     }
 
     public static DiscordCore getInstance() {
@@ -68,5 +79,13 @@ public class DiscordCore {
 
     public void setBotIconURL(String botIconURL) {
         this.botIconURL = botIconURL;
+    }
+
+    public TopGGManager getTopGGManager() {
+        return topGGManager;
+    }
+
+    public void setTopGGManager(TopGGManager topGGManager) {
+        this.topGGManager = topGGManager;
     }
 }
