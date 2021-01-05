@@ -30,7 +30,6 @@ public class CommandListener extends ListenerAdapter {
         this.prefix = discordCore.getPrefix();
     }
 
-
     @Override
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
         Guild guild = event.getGuild();
@@ -54,7 +53,7 @@ public class CommandListener extends ListenerAdapter {
                             Color.red,
                             "Exception: " + e.getClass().getName() + "\n",
                             null,
-                            guild).createMessage().sendTextChannel(channel);
+                            guild.getName()).createMessage().sendTextChannel(channel);
 
                     e.printStackTrace();
                 }

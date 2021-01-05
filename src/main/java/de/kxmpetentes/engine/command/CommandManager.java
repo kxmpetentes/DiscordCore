@@ -23,14 +23,23 @@ public class CommandManager {
         commands = new ArrayList<>();
     }
 
+    /**
+     * @param commands arraylist of commands
+     */
     public CommandManager(ArrayList<CommandExecuter> commands) {
         this.commands = commands;
     }
 
+    /**
+     * @param commandExecuter add new command to the commandlist
+     */
     public void addCommand(CommandExecuter commandExecuter) {
         commands.add(commandExecuter);
     }
 
+    /**
+     * @param commandExecuters add an array of commands to the commandlist
+     */
     public void addCommands(CommandExecuter... commandExecuters) {
         commands.addAll(Arrays.asList(commandExecuters));
     }
@@ -39,11 +48,7 @@ public class CommandManager {
         String[] args = message.getContentRaw().split(" ");
         if (member.getUser().isBot()) return false;
 
-        System.out.println(getCommands());
-
         for (CommandExecuter cmd : this.commands) {
-            System.out.println(cmd.getCommand());
-            System.out.println(command);
             if (cmd.getCommand().equalsIgnoreCase(command)) {
 
                 cmd.onCommand(member, channel, args, message);
@@ -56,6 +61,9 @@ public class CommandManager {
         return false;
     }
 
+    /**
+     * @return all commands
+     */
     public ArrayList<CommandExecuter> getCommands() {
         return commands;
     }

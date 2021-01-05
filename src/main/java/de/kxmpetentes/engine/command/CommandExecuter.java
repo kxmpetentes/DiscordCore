@@ -14,16 +14,37 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 public interface CommandExecuter {
 
+    /**
+     * @param member that runs the command
+     * @param channel that the command were processed
+     * @param args of the command
+     * @param message of the command message
+     */
     void onCommand(Member member, TextChannel channel, String[] args, Message message);
 
+    /**
+     * @return the string of the command
+     */
     String getCommand();
 
+    /**
+     * @return the description of the command
+     */
     String getDescription();
 
+    /**
+     * @return the usage/syntax of the command
+     */
     String getUsage();
 
+    /**
+     * @return the value if the command shown in help command
+     */
     boolean showInHelp();
 
+    /**
+     * @return commandtype
+     */
     CommandType getType();
 
 }
