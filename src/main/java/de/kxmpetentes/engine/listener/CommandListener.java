@@ -1,8 +1,12 @@
 package de.kxmpetentes.engine.listener;
 
 import de.kxmpetentes.engine.DiscordCore;
+import de.kxmpetentes.engine.language.LanguageTypes;
+import de.kxmpetentes.engine.manager.GuildCacheManager;
 import de.kxmpetentes.engine.model.ConsoleColors;
 import de.kxmpetentes.engine.model.EmbedModel;
+import de.kxmpetentes.engine.model.GuildModel;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -23,17 +27,33 @@ import java.awt.*;
 public class CommandListener extends ListenerAdapter {
 
     private final DiscordCore discordCore;
-    private final String prefix;
+
+    private String prefix;
+    private GuildCacheManager guildCacheManager = null;
 
     public CommandListener(DiscordCore discordCore) {
         this.discordCore = discordCore;
         this.prefix = discordCore.getPrefix();
-
     }
 
     @Override
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
         Guild guild = event.getGuild();
+        JDA jda = event.getJDA();
+
+        if (discordCore.isMongoDBEnabled() && discordCore.getJda() == null && this.guildCacheManager == null) {
+            discordCore.setJda(jda);
+
+            this.guildCacheManager = new GuildCacheManager(discordCore, jda);
+            discordCore.setGuildCacheManager(this.guildCacheManager);
+        }
+
+        GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix(), LanguageTypes.DE);
+        if (this.guildCacheManager != null) {
+            guildModel = this.guildCacheManager.getGuildModel(event.getGuild().getIdLong());
+        }
+
+        prefix = guildModel.getPrefix();
 
         String message = event.getMessage().getContentDisplay();
         Member member = event.getMessage().getMember();
@@ -63,4 +83,3 @@ public class CommandListener extends ListenerAdapter {
 
     }
 }
-

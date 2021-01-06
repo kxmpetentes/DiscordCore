@@ -1,8 +1,7 @@
 package de.kxmpetentes.engine.build;
 
 import de.kxmpetentes.engine.DiscordCore;
-import de.kxmpetentes.engine.listener.CommandListener;
-import de.kxmpetentes.engine.listener.OnReadyListener;
+import de.kxmpetentes.engine.listener.*;
 import de.kxmpetentes.engine.model.ConsoleColors;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -60,7 +59,9 @@ public class DefaultBotBuilder {
         defaultShardManagerBuilder.setActivity(activity);
         defaultShardManagerBuilder.setStatus(onlineStatus);
         defaultShardManagerBuilder.addEventListeners(new CommandListener(discordCore));
-        defaultShardManagerBuilder.addEventListeners(new OnReadyListener(discordCore));
+        defaultShardManagerBuilder.addEventListeners(new JoinGuildListener(discordCore));
+        defaultShardManagerBuilder.addEventListeners(new QuitGuildListener(discordCore));
+        defaultShardManagerBuilder.addEventListeners(new ShutdownListener(discordCore));
 
         if (!eventListeners.isEmpty()) {
             for (EventListener eventListener : eventListeners) {

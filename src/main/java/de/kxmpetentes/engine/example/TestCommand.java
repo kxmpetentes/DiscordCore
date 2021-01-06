@@ -1,7 +1,9 @@
 package de.kxmpetentes.engine.example;
 
+import de.kxmpetentes.engine.DiscordCore;
 import de.kxmpetentes.engine.command.CommandExecuter;
 import de.kxmpetentes.engine.command.CommandType;
+import de.kxmpetentes.engine.manager.MongoAPI;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -18,7 +20,13 @@ public class TestCommand implements CommandExecuter {
 
     @Override
     public void onCommand(Member member, TextChannel channel, String[] args, Message message) {
-        message.reply("juhu").queue();
+
+        DiscordCore discordCore = DiscordCore.getInstance();
+        if (!discordCore.isMongoDBEnabled()) {
+            message.reply("MongoDB ist nicht verbunden!").queue();
+        } else {
+            message.reply("DB: " + MongoAPI.getMongoDatabase().getName()).queue();
+        }
     }
 
     @Override

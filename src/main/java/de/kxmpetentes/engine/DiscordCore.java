@@ -133,6 +133,10 @@ public class DiscordCore {
             System.out.println(ConsoleColors.RED + "MongoDB Client konnte sich nicht verbinden!");
             this.mongoDB = false;
         }
+
+        if (mongoDB) {
+            System.out.println(ConsoleColors.GREEN + "MongoDB verbunden!");
+        }
     }
 
     public boolean isMongoDBEnabled() {

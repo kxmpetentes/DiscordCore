@@ -1,13 +1,16 @@
 package de.kxmpetentes.engine.manager;
 
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import de.kxmpetentes.engine.DiscordCore;
 import de.kxmpetentes.engine.language.LanguageTypes;
 import de.kxmpetentes.engine.model.GuildModel;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import org.bson.Document;
 
 import java.util.HashMap;
+import java.util.Timer;
 
 /**
  * @author kxmpetentes
@@ -20,9 +23,12 @@ import java.util.HashMap;
 public class GuildCacheManager {
 
     private final HashMap<Long, GuildModel> guildCache = new HashMap<>();
+    private final DiscordCore discordCore;
 
-    public GuildCacheManager(DiscordCore discordCore) {
-        for (Guild guild : discordCore.getJda().getGuilds()) {
+    public GuildCacheManager(DiscordCore discordCore, JDA jda) {
+        this.discordCore = discordCore;
+
+        for (Guild guild : jda.getGuilds()) {
             for (Document document : MongoAPI.getCollection("DiscordEngine").find(Filters.eq("settings", guild.getId()))) {
                 if (document != null) {
 
@@ -39,6 +45,12 @@ public class GuildCacheManager {
 
                     GuildModel guildModel = new GuildModel(guild, prefix, language);
                     guildCache.put(guild.getIdLong(), guildModel);
+                } else {
+
+                    GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix(), LanguageTypes.DE);
+                    addNewGuild(guildModel);
+                    guildCache.put(guild.getIdLong(), guildModel);
+
                 }
             }
         }
@@ -48,7 +60,53 @@ public class GuildCacheManager {
         return guildCache;
     }
 
-    public GuildModel getGuildModel(long id) {
-        return guildCache.get(id);
+    public GuildModel getGuildModel(long guildId) {
+
+        if (guildCache.containsKey(guildId)) {
+            return guildCache.get(guildId);
+        } else {
+            addGuildToCache(discordCore.getJda().getGuildById(guildId));
+            getGuildModel(guildId);
+
+        }
+
+        return null;
+    }
+
+    public void addGuildToCache(Guild guild) {
+        GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix(), LanguageTypes.DE);
+        guildCache.put(guild.getIdLong(), guildModel);
+
+        addNewGuild(guildModel);
+    }
+
+    public void removeGuildFromCache(Guild guild) {
+        GuildModel guildModel = guildCache.get(guild.getIdLong());
+
+        updateGuild(guildModel);
+        guildCache.remove(guild.getIdLong());
+    }
+
+    public void addNewGuild(GuildModel guildModel) {
+
+        Document document = new Document();
+        document.append("settings", guildModel.getGuildId());
+        document.append("prefix", guildModel.getPrefix());
+        document.append("language", guildModel.getLanguage().getId());
+
+        MongoAPI.getCollection("DiscordEngine").insertOne(document);
+    }
+
+    public void updateGuild(GuildModel guildModel) {
+        MongoAPI.getCollection("DiscordEngine").updateOne(Filters.eq("settings", guildModel.getGuildId()), Updates.combine(
+                Updates.set("prefix", guildModel.getPrefix()),
+                Updates.set("language", guildModel.getLanguage().getId())
+        ));
+    }
+
+    public void updateGuilds() {
+        for (GuildModel guildModel : guildCache.values()) {
+            updateGuild(guildModel);
+        }
     }
 }
