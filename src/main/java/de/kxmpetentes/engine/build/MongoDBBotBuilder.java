@@ -18,10 +18,10 @@ import java.util.ArrayList;
  * Website: kxmpetentes.de
  * GitLab: gitlab.com/kxmpetentes
  * GitHub: git.kxmpetentes.de
- * Erstellt am: 04.01.2021 um 22:25
+ * Erstellt am: 07.01.2021 um 15:22
  */
 
-public class DefaultBotBuilder {
+public class MongoDBBotBuilder {
 
     private final DiscordCore discordCore;
     private final String token;
@@ -32,14 +32,16 @@ public class DefaultBotBuilder {
     private ArrayList<EventListener> eventListeners;
     private ArrayList<CommandExecuter> commandExecuters;
 
-    public DefaultBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity) {
+    public MongoDBBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity) {
         this.discordCore = discordCore;
         this.token = token;
         this.onlineStatus = onlineStatus;
         this.activity = activity;
+
+        discordCore.enableMongoDB();
     }
 
-    public DefaultBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity, ArrayList<GatewayIntent> gatewayIntents,
+    public MongoDBBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity, ArrayList<GatewayIntent> gatewayIntents,
                              ArrayList<EventListener> eventListeners, ArrayList<CommandExecuter> commandExecuters) {
         this.discordCore = discordCore;
         this.token = token;
@@ -49,6 +51,8 @@ public class DefaultBotBuilder {
         this.gatewayIntents = gatewayIntents;
         this.eventListeners = eventListeners;
         this.commandExecuters = commandExecuters;
+
+        discordCore.enableMongoDB();
     }
 
     public String getToken() {
@@ -82,4 +86,5 @@ public class DefaultBotBuilder {
     public DiscordCore getDiscordCore() {
         return discordCore;
     }
+
 }
