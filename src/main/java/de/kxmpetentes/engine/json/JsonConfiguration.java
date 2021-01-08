@@ -1,4 +1,4 @@
-package de.kxmpetentes.engine.config;
+package de.kxmpetentes.engine.json;
 
 import com.google.gson.*;
 
@@ -84,16 +84,14 @@ public class JsonConfiguration {
         return this.dataCatcher.has(key);
     }
 
-    public JsonConfiguration append(String key, String value) {
-        if (value == null) return this;
+    public void append(String key, String value) {
+        if (value == null) return;
         this.dataCatcher.addProperty(key, value);
-        return this;
     }
 
-    public JsonConfiguration append(String key, Number value) {
-        if (value == null) return this;
+    public void append(String key, Number value) {
+        if (value == null) return;
         this.dataCatcher.addProperty(key, value);
-        return this;
     }
 
     public JsonConfiguration append(String key, Boolean value) {
@@ -114,10 +112,9 @@ public class JsonConfiguration {
         return this;
     }
 
-    public JsonConfiguration append(String key, JsonConfiguration value) {
-        if (value == null) return this;
+    public void append(String key, JsonConfiguration value) {
+        if (value == null) return;
         this.dataCatcher.add(key, value.dataCatcher);
-        return this;
     }
 
     @Deprecated
@@ -138,9 +135,8 @@ public class JsonConfiguration {
         return this;
     }
 
-    public JsonConfiguration remove(String key) {
+    public void remove(String key) {
         this.dataCatcher.remove(key);
-        return this;
     }
 
     public Set<String> keys() {
@@ -241,20 +237,14 @@ public class JsonConfiguration {
         return dataCatcher.toString();
     }
 
-    public boolean saveAsConfig(File backend) {
-        if (backend == null) return false;
-
-        if (backend.exists()) {
-            backend.delete();
-        }
+    public void saveAsConfig(File backend) {
+        if (backend == null) return;
 
         try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(backend), StandardCharsets.UTF_8)) {
             GSON.toJson(dataCatcher, (writer));
-            return true;
         } catch (IOException ex) {
             ex.getStackTrace();
         }
-        return false;
     }
 
     public boolean saveAsConfig(Path path) {
@@ -275,7 +265,7 @@ public class JsonConfiguration {
         return loadDocument(backend.toPath());
     }
 
-    public static JsonConfiguration JsonConfiguration(File backend) throws Exception {
+    public JsonConfiguration JsonConfiguration(File backend) throws Exception {
         try {
             return new JsonConfiguration(PARSER.parse(new String(Files.readAllBytes(backend.toPath()), StandardCharsets.UTF_8)).getAsJsonObject());
         } catch (Exception ex) {

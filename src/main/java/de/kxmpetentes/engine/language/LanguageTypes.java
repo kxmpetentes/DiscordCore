@@ -42,4 +42,18 @@ public enum LanguageTypes {
 
         return null;
     }
+
+    /**
+     * @return languagetype
+     * @throws NullPointerException name can be null
+     */
+    public static LanguageTypes getTypeByName(String name) {
+        for (LanguageTypes language : values()) {
+            if (language.getType().equals(name)) {
+                return language;
+            }
+        }
+
+        return null;
+    }
 }

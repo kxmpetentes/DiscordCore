@@ -1,7 +1,7 @@
 package de.kxmpetentes.engine;
 
 import de.kxmpetentes.engine.command.CommandManager;
-import de.kxmpetentes.engine.config.JsonConfiguration;
+import de.kxmpetentes.engine.json.JsonConfiguration;
 import de.kxmpetentes.engine.manager.GuildCacheManager;
 import de.kxmpetentes.engine.manager.MongoAPI;
 import de.kxmpetentes.engine.manager.TopGGManager;
