@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * @author kxmpetentes
@@ -35,6 +37,23 @@ public class JsonWebsite {
             return null;
         }
 
+    }
+
+    public ArrayList<String> getArray() throws IOException {
+        ArrayList<String> values = new ArrayList<>();
+
+        Scanner s = new Scanner(new URL(url).openStream());
+        while (s.hasNextLine()) {
+            String line = s.nextLine().replaceAll(",", "").replaceAll("\"", "").
+                    replaceAll(" {3}", "");
+            if (!line.contains("[") && !line.contains("]")) {
+                values.add(line);
+            }
+        }
+        s.close();
+
+        if (values.isEmpty()) return null;
+        return values;
     }
 
     private String read(Reader reader) throws IOException {

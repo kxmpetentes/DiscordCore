@@ -25,6 +25,10 @@ public class InviteManager {
         this.channel = channel;
     }
 
+    public boolean hasVanityInvite() {
+        return guild.getVanityUrl() != null;
+    }
+
     public String getInvite() {
 
         if (guild.getVanityUrl() != null) {
@@ -49,7 +53,7 @@ public class InviteManager {
         return inviteUrl.get();
     }
 
-    public String createInvite() {
+    private String createInvite() {
         InviteAction action = channel.createInvite().setTemporary(false).setUnique(false).setMaxAge(0);
         return action.complete().getUrl();
     }

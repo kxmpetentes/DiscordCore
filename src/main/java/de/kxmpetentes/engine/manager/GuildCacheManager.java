@@ -7,6 +7,8 @@ import de.kxmpetentes.engine.language.LanguageTypes;
 import de.kxmpetentes.engine.model.GuildModel;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import org.bson.Document;
 
 import java.util.HashMap;
@@ -34,6 +36,9 @@ public class GuildCacheManager {
 
                     String prefix = discordCore.getPrefix();
                     LanguageTypes language = LanguageTypes.DE;
+                    TextChannel joinChannel = null;
+                    TextChannel quitChannel = null;
+                    Role autoRole = null;
 
                     if (document.containsKey("prefix")) {
                         prefix = document.getString("prefix");
@@ -43,7 +48,19 @@ public class GuildCacheManager {
                         language = LanguageTypes.getTypeByID(document.getInteger("language"));
                     }
 
-                    GuildModel guildModel = new GuildModel(guild, prefix, language);
+                    if (document.containsKey("joinChannel")) {
+                        joinChannel = guild.getTextChannelById(document.getString("joinChannel"));
+                    }
+
+                    if (document.containsKey("quitChannel")) {
+                        quitChannel = guild.getTextChannelById(document.getString("quitChannel"));
+                    }
+
+                    if (document.containsKey("autoRole")) {
+                        autoRole = guild.getRoleById(document.getString("autoRole"));
+                    }
+
+                    GuildModel guildModel = new GuildModel(guild, prefix, language, joinChannel, quitChannel, autoRole);
                     guildCache.put(guild.getIdLong(), guildModel);
                 } else {
 
@@ -93,6 +110,9 @@ public class GuildCacheManager {
         document.append("settings", guildModel.getGuildId());
         document.append("prefix", guildModel.getPrefix());
         document.append("language", guildModel.getLanguage().getId());
+        document.append("joinChannel", "");
+        document.append("quitChannel", "");
+        document.append("autoRole", "");
 
         MongoAPI.getCollection("DiscordEngine").insertOne(document);
     }
@@ -100,7 +120,10 @@ public class GuildCacheManager {
     public void updateGuild(GuildModel guildModel) {
         MongoAPI.getCollection("DiscordEngine").updateOne(Filters.eq("settings", guildModel.getGuildId()), Updates.combine(
                 Updates.set("prefix", guildModel.getPrefix()),
-                Updates.set("language", guildModel.getLanguage().getId())
+                Updates.set("language", guildModel.getLanguage().getId()),
+                Updates.set("joinChannel", guildModel.getJoinChannel().getId()),
+                Updates.set("quitChannel", guildModel.getQuitChannel().getId()),
+                Updates.set("autoRole", guildModel.getAutoRole())
         ));
     }
 
