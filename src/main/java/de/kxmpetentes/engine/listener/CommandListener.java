@@ -48,12 +48,19 @@ public class CommandListener extends ListenerAdapter {
             discordCore.setGuildCacheManager(this.guildCacheManager);
         }
 
-        GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix(), LanguageTypes.DE);
+        GuildModel guildModel = null;
         if (this.guildCacheManager != null) {
             guildModel = this.guildCacheManager.getGuildModel(event.getGuild().getIdLong());
         }
 
+        if (guildModel == null) {
+            guildModel = new GuildModel(guild, discordCore.getPrefix(), LanguageTypes.DE);
+        }
+        
         prefix = guildModel.getPrefix();
+        if (guildModel.getPrefix() == null) {
+            prefix = discordCore.getPrefix();
+        }
 
         String message = event.getMessage().getContentDisplay();
         Member member = event.getMessage().getMember();

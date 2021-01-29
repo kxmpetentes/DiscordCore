@@ -36,9 +36,9 @@ public class GuildCacheManager {
 
                     String prefix = discordCore.getPrefix();
                     LanguageTypes language = LanguageTypes.DE;
-                    TextChannel joinChannel = null;
-                    TextChannel quitChannel = null;
-                    Role autoRole = null;
+                    TextChannel joinChannel = guild.getTextChannelById(Long.MIN_VALUE);
+                    TextChannel quitChannel = guild.getTextChannelById(Long.MIN_VALUE);
+                    Role autoRole = guild.getRoleById(Long.MIN_VALUE);
 
                     if (document.containsKey("prefix")) {
                         prefix = document.getString("prefix");
@@ -49,15 +49,32 @@ public class GuildCacheManager {
                     }
 
                     if (document.containsKey("joinChannel")) {
-                        joinChannel = guild.getTextChannelById(document.getString("joinChannel"));
+
+                        try {
+                            joinChannel = guild.getTextChannelById(document.getString("joinChannel"));
+                        } catch (NumberFormatException e) {
+                            joinChannel = guild.getTextChannelById(Long.MIN_VALUE);
+                        }
+
                     }
 
                     if (document.containsKey("quitChannel")) {
-                        quitChannel = guild.getTextChannelById(document.getString("quitChannel"));
+
+                        try {
+                            quitChannel = guild.getTextChannelById(document.getString("quitChannel"));
+                        } catch (NumberFormatException e) {
+                            quitChannel = guild.getTextChannelById(Long.MIN_VALUE);
+                        }
+
                     }
 
                     if (document.containsKey("autoRole")) {
-                        autoRole = guild.getRoleById(document.getString("autoRole"));
+
+                        try {
+                            autoRole = guild.getRoleById(document.getString("autoRole"));
+                        } catch (NumberFormatException e) {
+                            autoRole = guild.getRoleById(Long.MIN_VALUE);
+                        }
                     }
 
                     GuildModel guildModel = new GuildModel(guild, prefix, language, joinChannel, quitChannel, autoRole);
@@ -75,6 +92,10 @@ public class GuildCacheManager {
 
     public HashMap<Long, GuildModel> getGuildCache() {
         return guildCache;
+    }
+
+    public GuildModel getGuildModel(Guild guild) {
+        return getGuildModel(guild.getIdLong());
     }
 
     public GuildModel getGuildModel(long guildId) {
@@ -110,26 +131,46 @@ public class GuildCacheManager {
         document.append("settings", guildModel.getGuildId());
         document.append("prefix", guildModel.getPrefix());
         document.append("language", guildModel.getLanguage().getId());
-        document.append("joinChannel", "");
-        document.append("quitChannel", "");
-        document.append("autoRole", "");
 
-        MongoAPI.getCollection("DiscordEngine").insertOne(document);
+        MongoAPI.getCollection("DiscordEngine").insertOne(updateGuildChannels(guildModel, document));
     }
 
-    public void updateGuild(GuildModel guildModel) {
-        MongoAPI.getCollection("DiscordEngine").updateOne(Filters.eq("settings", guildModel.getGuildId()), Updates.combine(
-                Updates.set("prefix", guildModel.getPrefix()),
-                Updates.set("language", guildModel.getLanguage().getId()),
-                Updates.set("joinChannel", guildModel.getJoinChannel().getId()),
-                Updates.set("quitChannel", guildModel.getQuitChannel().getId()),
-                Updates.set("autoRole", guildModel.getAutoRole())
-        ));
+        public void updateGuild(GuildModel guildModel) {
+
+        MongoAPI.getCollection("DiscordEngine").findOneAndDelete(Filters.eq("settings", guildModel.getGuildId()));
+
+        Document document = new Document();
+        document.append("settings", guildModel.getGuildId());
+        document.append("prefix", guildModel.getPrefix());
+        document.append("language", guildModel.getLanguage().getId());
+
+        MongoAPI.getCollection("DiscordEngine").insertOne(updateGuildChannels(guildModel, document));
+
     }
 
     public void updateGuilds() {
         for (GuildModel guildModel : guildCache.values()) {
             updateGuild(guildModel);
         }
+    }
+
+    private Document updateGuildChannels(GuildModel guildModel, Document document) {
+
+        if (guildModel.getJoinChannel() == null) {
+            document.append("joinChannel", String.valueOf(Long.MAX_VALUE));
+        } else
+            document.append("joinChannel", guildModel.getJoinChannel().getId());
+
+        if (guildModel.getQuitChannel() == null) {
+            document.append("quitChannel", String.valueOf(Long.MAX_VALUE));
+        } else
+            document.append("quitChannel", guildModel.getQuitChannel().getId());
+
+        if (guildModel.getAutoRole() == null) {
+            document.append("autoRole", String.valueOf(Long.MAX_VALUE));
+        } else
+            document.append("autoRole", guildModel.getAutoRole().getId());
+
+        return document;
     }
 }
