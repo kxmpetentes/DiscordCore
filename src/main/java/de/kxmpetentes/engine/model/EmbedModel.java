@@ -31,6 +31,7 @@ public class EmbedModel {
     private String text;
     private EmbedBuilder embedBuilder = new EmbedBuilder();
     private TemporalAccessor timestep;
+    private String authorLink;
 
     public EmbedModel(String text) {
         this.text = text;
@@ -49,7 +50,7 @@ public class EmbedModel {
 
     public EmbedModel createMessage() {
         embedBuilder.setTitle(title);
-        embedBuilder.setAuthor(author);
+        embedBuilder.setAuthor(author, authorLink);
         embedBuilder.setImage(image);
         embedBuilder.setColor(color);
         embedBuilder.setDescription(text);
@@ -86,8 +87,16 @@ public class EmbedModel {
         this.author = author;
     }
 
+    public void setAuthorLink(String authorLink) {
+        this.authorLink = authorLink;
+    }
+
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public EmbedBuilder getEmbedBuilder() {
+        return embedBuilder;
     }
 
     public void setEmbedBuilder(EmbedBuilder embedBuilder) {
