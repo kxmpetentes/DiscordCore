@@ -4,6 +4,7 @@ import de.kxmpetentes.engine.language.LanguageTypes;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
+import org.bson.Document;
 
 /**
  * @author kxmpetentes
@@ -23,6 +24,7 @@ public class GuildModel {
     private TextChannel joinChannel;
     private TextChannel quitChannel;
     private Role autoRole;
+    private Document guildDocument;
 
 
     public GuildModel(Guild guild, String prefix, LanguageTypes language) {
@@ -100,5 +102,13 @@ public class GuildModel {
 
     public void setAutoRole(Role autoRole) {
         this.autoRole = autoRole;
+    }
+
+    public Document getGuildDocument() {
+        return guildDocument;
+    }
+
+    public void setGuildDocument(Document guildDocument) {
+        this.guildDocument = guildDocument;
     }
 }

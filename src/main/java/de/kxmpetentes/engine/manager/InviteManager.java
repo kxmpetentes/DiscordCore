@@ -20,6 +20,11 @@ public class InviteManager {
     private final Guild guild;
     private final TextChannel channel;
 
+    public InviteManager(Guild guild) {
+        this.guild = guild;
+        this.channel = guild.getDefaultChannel();
+    }
+
     public InviteManager(Guild guild, TextChannel channel) {
         this.guild = guild;
         this.channel = channel;

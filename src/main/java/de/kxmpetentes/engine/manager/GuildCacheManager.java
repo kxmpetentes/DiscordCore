@@ -1,7 +1,6 @@
 package de.kxmpetentes.engine.manager;
 
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Updates;
 import de.kxmpetentes.engine.DiscordCore;
 import de.kxmpetentes.engine.language.LanguageTypes;
 import de.kxmpetentes.engine.model.GuildModel;
@@ -13,6 +12,7 @@ import org.bson.Document;
 
 import java.util.HashMap;
 import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * @author kxmpetentes
@@ -26,6 +26,8 @@ public class GuildCacheManager {
 
     private final HashMap<Long, GuildModel> guildCache = new HashMap<>();
     private final DiscordCore discordCore;
+
+    private Timer timer;
 
     public GuildCacheManager(DiscordCore discordCore, JDA jda) {
         this.discordCore = discordCore;
@@ -78,6 +80,7 @@ public class GuildCacheManager {
                     }
 
                     GuildModel guildModel = new GuildModel(guild, prefix, language, joinChannel, quitChannel, autoRole);
+                    guildModel.setGuildDocument(document);
                     guildCache.put(guild.getIdLong(), guildModel);
                 } else {
 
@@ -88,6 +91,9 @@ public class GuildCacheManager {
                 }
             }
         }
+
+        timer = getBackupTimer();
+
     }
 
     public HashMap<Long, GuildModel> getGuildCache() {
@@ -127,15 +133,19 @@ public class GuildCacheManager {
 
     public void addNewGuild(GuildModel guildModel) {
 
-        Document document = new Document();
-        document.append("settings", guildModel.getGuildId());
-        document.append("prefix", guildModel.getPrefix());
-        document.append("language", guildModel.getLanguage().getId());
+        Document document = MongoAPI.getCollection("DiscordCore").find(Filters.eq("settings", guildModel.getGuildId())).first();
 
+        if (document == null) {
+            document = new Document();
+            document.append("settings", guildModel.getGuildId());
+            document.append("prefix", guildModel.getPrefix());
+            document.append("language", guildModel.getLanguage().getId());
+
+        }
         MongoAPI.getCollection("DiscordEngine").insertOne(updateGuildChannels(guildModel, document));
     }
 
-        public void updateGuild(GuildModel guildModel) {
+    public void updateGuild(GuildModel guildModel) {
 
         MongoAPI.getCollection("DiscordEngine").findOneAndDelete(Filters.eq("settings", guildModel.getGuildId()));
 
@@ -171,6 +181,24 @@ public class GuildCacheManager {
         } else
             document.append("autoRole", guildModel.getAutoRole().getId());
 
+        guildModel.setGuildDocument(document);
+
         return document;
+    }
+
+    public Timer getBackupTimer() {
+
+        timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                updateGuilds();
+
+            }
+        }, 1, 1000L * 60);
+
+        return timer;
     }
 }

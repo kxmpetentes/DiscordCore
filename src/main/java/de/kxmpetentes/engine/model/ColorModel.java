@@ -14,7 +14,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ColorModel {
 
-    private final Color color;
     private final ArrayList<Color> colorList = new ArrayList<>();
 
     /**
@@ -28,15 +27,15 @@ public class ColorModel {
             this.colorList.add(c.darker());
         }
 
-        int randomInt = ThreadLocalRandom.current().nextInt(colorList.size());
-        this.color = this.colorList.get(randomInt);
     }
 
     /**
      * @return a random color of the colors specified in the constructor
      */
     public Color getColor() {
-        return color;
+        int randomInt = ThreadLocalRandom.current().nextInt(colorList.size());
+
+        return this.colorList.get(randomInt);
     }
 
     /**
