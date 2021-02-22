@@ -30,7 +30,7 @@ Maven
 ````
 
 Gradle
-````
+````gradle
 allprojects {
 	repositories {
 		...
@@ -38,7 +38,7 @@ allprojects {
 	}
 }
 ````
-````
+````gradle
 dependencies {
         implementation 'com.github.kxmpetentes:DiscordEngine:VERSION'
 }
