@@ -34,12 +34,12 @@ Gradle
 allprojects {
 	repositories {
 		...
-		maven { url 'https://jitpack.io' }
+		maven { url 'https://spotifynutzer.jfrog.io/artifactory/DiscordCore/' }
 	}
 }
 ````
 ````gradle
 dependencies {
-        implementation 'com.github.kxmpetentes:DiscordEngine:VERSION'
+        implementation 'de.kxmpetentes:DiscordEngine:VERSION'
 }
 ````
