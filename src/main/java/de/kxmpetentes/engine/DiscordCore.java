@@ -115,7 +115,7 @@ public class DiscordCore {
             jsonConfiguration.append("database", "bot");
 
             jsonConfiguration.saveAsConfig(file);
-            System.out.println(DeprecatedConsoleColors.GREEN + "Created MongoDB Config!");
+            System.out.println(ConsoleColors.GREEN + "Created MongoDB Config!");
 
             this.mongoDB = false;
             return;

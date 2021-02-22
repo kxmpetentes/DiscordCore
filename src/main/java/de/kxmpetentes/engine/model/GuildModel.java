@@ -26,7 +26,6 @@ public class GuildModel {
     private Role autoRole;
     private Document guildDocument;
 
-
     public GuildModel(Guild guild, String prefix, LanguageTypes language) {
         this.guild = guild;
         this.guildId = guild.getId();
