@@ -12,14 +12,16 @@ import java.util.concurrent.ThreadLocalRandom;
  * Erstellt am: 04.01.2021 um 22:16
  */
 
-public class ColorModel {
+
+@Deprecated
+public class DeprecatedColorModel {
 
     private final ArrayList<Color> colorList = new ArrayList<>();
 
     /**
      * @param colors Enter the colors from which a random one should be chosen
      */
-    public ColorModel(Color... colors) {
+    public DeprecatedColorModel(Color... colors) {
 
         for (Color c : colors) {
             this.colorList.add(c);

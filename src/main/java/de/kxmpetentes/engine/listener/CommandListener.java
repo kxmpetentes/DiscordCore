@@ -3,8 +3,8 @@ package de.kxmpetentes.engine.listener;
 import de.kxmpetentes.engine.DiscordCore;
 import de.kxmpetentes.engine.language.LanguageTypes;
 import de.kxmpetentes.engine.manager.GuildCacheManager;
-import de.kxmpetentes.engine.model.ConsoleColors;
-import de.kxmpetentes.engine.model.EmbedModel;
+import de.kxmpetentes.engine.model.DeprecatedConsoleColors;
+import de.kxmpetentes.engine.model.DeprecatedEmbedModel;
 import de.kxmpetentes.engine.model.GuildModel;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
@@ -72,10 +72,10 @@ public class CommandListener extends ListenerAdapter {
             if (args.length > 0) {
                 try {
                     if (discordCore.getCommandManager().performedCommand(args[0], member, channel, event.getMessage())) {
-                        System.out.println(ConsoleColors.RED + guild.getName() + ": " + member.getUser().getName() + ConsoleColors.WHITE + ": " + event.getMessage().getContentDisplay() + ConsoleColors.RESET);
+                        System.out.println(DeprecatedConsoleColors.RED + guild.getName() + ": " + member.getUser().getName() + DeprecatedConsoleColors.WHITE + ": " + event.getMessage().getContentDisplay() + DeprecatedConsoleColors.RESET);
                     }
                 } catch (Exception e) {
-                    new EmbedModel("**Fehler!**",
+                    new DeprecatedEmbedModel("**Fehler!**",
                             null,
                             null,
                             Color.red,

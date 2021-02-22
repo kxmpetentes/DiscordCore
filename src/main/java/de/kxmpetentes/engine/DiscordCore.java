@@ -6,6 +6,7 @@ import de.kxmpetentes.engine.manager.GuildCacheManager;
 import de.kxmpetentes.engine.manager.MongoAPI;
 import de.kxmpetentes.engine.manager.TopGGManager;
 import de.kxmpetentes.engine.model.ConsoleColors;
+import de.kxmpetentes.engine.model.DeprecatedConsoleColors;
 import net.dv8tion.jda.api.JDA;
 
 import java.io.File;
@@ -114,7 +115,7 @@ public class DiscordCore {
             jsonConfiguration.append("database", "bot");
 
             jsonConfiguration.saveAsConfig(file);
-            System.out.println(ConsoleColors.GREEN + "Created MongoDB Config!");
+            System.out.println(DeprecatedConsoleColors.GREEN + "Created MongoDB Config!");
 
             this.mongoDB = false;
             return;
@@ -122,7 +123,7 @@ public class DiscordCore {
 
         jsonConfiguration = JsonConfiguration.loadDocument(file);
 
-        System.out.println(ConsoleColors.RED + "Versuche MongoDB zu verbinden!");
+        System.out.println(DeprecatedConsoleColors.RED + "Versuche MongoDB zu verbinden!");
         try {
             MongoAPI.connect(jsonConfiguration.getString("host"), jsonConfiguration.getInt("port"), jsonConfiguration.getString("user"),
                     jsonConfiguration.getString("auth-database"), jsonConfiguration.getString("database"), jsonConfiguration.getString("password"));
@@ -130,12 +131,12 @@ public class DiscordCore {
             this.mongoDB = true;
 
         } catch (Exception e) {
-            System.out.println(ConsoleColors.RED + "MongoDB Client konnte sich nicht verbinden!");
+            System.out.println(DeprecatedConsoleColors.RED + "MongoDB Client konnte sich nicht verbinden!");
             this.mongoDB = false;
         }
 
         if (mongoDB) {
-            System.out.println(ConsoleColors.GREEN + "MongoDB verbunden!");
+            System.out.println(DeprecatedConsoleColors.GREEN + "MongoDB verbunden!");
         }
     }
 

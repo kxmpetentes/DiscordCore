@@ -3,7 +3,6 @@ package de.kxmpetentes.engine.build;
 import de.kxmpetentes.engine.DiscordCore;
 import de.kxmpetentes.engine.command.CommandExecuter;
 import de.kxmpetentes.engine.manager.BotCreateManager;
-import de.kxmpetentes.engine.model.ConsoleColors;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.EventListener;

@@ -2,7 +2,6 @@ package de.kxmpetentes.engine.model;
 
 import de.kxmpetentes.engine.DiscordCore;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -19,7 +18,8 @@ import java.time.temporal.TemporalAccessor;
  * Erstellt am: 04.01.2021 um 22:00
  */
 
-public class EmbedModel {
+@Deprecated
+public class DeprecatedEmbedModel {
 
     private String author;
     private String title;
@@ -33,11 +33,11 @@ public class EmbedModel {
     private TemporalAccessor timestep;
     private String authorLink;
 
-    public EmbedModel(String text) {
+    public DeprecatedEmbedModel(String text) {
         this.text = text;
     }
 
-    public EmbedModel(String title, String author, String image, Color color, String text, String thumbnail, String footer) {
+    public DeprecatedEmbedModel(String title, String author, String image, Color color, String text, String thumbnail, String footer) {
         this.title = title;
         this.author = author;
         this.image = image;
@@ -48,7 +48,7 @@ public class EmbedModel {
         this.footer = footer;
     }
 
-    public EmbedModel createMessage() {
+    public DeprecatedEmbedModel createMessage() {
         embedBuilder.setTitle(title);
         embedBuilder.setAuthor(author, authorLink);
         embedBuilder.setImage(image);
@@ -61,7 +61,7 @@ public class EmbedModel {
         return this;
     }
 
-    public EmbedModel addField(String name, String value, boolean inline) {
+    public DeprecatedEmbedModel addField(String name, String value, boolean inline) {
         embedBuilder.addField(name, value, inline);
 
         return this;

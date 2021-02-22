@@ -8,7 +8,8 @@ package de.kxmpetentes.engine.model;
  * Erstellt am: 04.01.2021 um 21:53
  */
 
-public class ConsoleColors {
+@Deprecated
+public class DeprecatedConsoleColors {
 
     public static final String RESET = "\u001b[0m";
     public static final String BLACK = "\u001b[0;30m";
