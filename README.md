@@ -10,8 +10,8 @@ Maven
 <repositories>
 
     <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
+        <id>discordcore-repo</id>
+        <url>https://spotifynutzer.jfrog.ip/artifactory/DiscordCore</url>
     </repository>
 
 </repositories>
@@ -21,7 +21,7 @@ Maven
 
     <!-- DiscordEngine -->
     <dependency>
-        <groupId>com.github.kxmpetentes</groupId>
+        <groupId>de.kxmpetentes</groupId>
         <artifactId>DiscordEngine</artifactId>
         <version>VERSION</version>
     </dependency>
@@ -32,14 +32,14 @@ Maven
 Gradle
 ````
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
 ````
 ````
 dependencies {
-	        implementation 'com.github.kxmpetentes:DiscordEngine:VERSION'
-	}
+        implementation 'com.github.kxmpetentes:DiscordEngine:VERSION'
+}
 ````
