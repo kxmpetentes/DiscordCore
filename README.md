@@ -1,6 +1,6 @@
 ## JavaDocs and examples will follow soon. This project is just beginning
 
-[![](https://jitpack.io/v/kxmpetentes/DiscordEngine.svg)](https://jitpack.io/#kxmpetentes/DiscordEngine) ![Java CI with Maven](https://github.com/kxmpetentes/DiscordEngine/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
+![Java CI with Maven](https://github.com/kxmpetentes/DiscordEngine/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 
 Currently it's just a simple CommandHelper for the JDA. But there will be more features soon
 
