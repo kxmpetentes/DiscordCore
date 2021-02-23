@@ -3,6 +3,7 @@ package de.kxmpetentes.engine.json;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -16,6 +17,7 @@ import java.io.IOException;
  */
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class ConfigProvider {
 

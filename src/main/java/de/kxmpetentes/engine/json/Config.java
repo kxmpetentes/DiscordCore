@@ -18,11 +18,11 @@ public class Config {
         config = new HashMap<>();
     }
 
-    protected Map<String, Object> getConfig() {
+    public Map<String, Object> getConfig() {
         return config;
     }
 
-    protected void setConfig(Map<String, Object> config) {
+    public void setConfig(Map<String, Object> config) {
         this.config = config;
     }
 
