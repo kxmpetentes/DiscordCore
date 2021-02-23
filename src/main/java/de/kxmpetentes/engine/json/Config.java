@@ -30,4 +30,24 @@ public class Config {
         this.config.put(key, value);
     }
 
+    public boolean containsKey(String key) {
+        return config.containsKey(key);
+    }
+
+    public int size() {
+        return config.size();
+    }
+
+    public boolean containsValue(Object value) {
+        return config.containsValue(value);
+    }
+
+    public Object get(String key) {
+        return config.get(key);
+    }
+
+    public Object getOrDefault(String key, Object defaultValue) {
+        return config.getOrDefault(key, defaultValue);
+    }
+
 }
