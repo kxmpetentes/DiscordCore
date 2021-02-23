@@ -1,7 +1,7 @@
 package de.kxmpetentes.engine;
 
 import de.kxmpetentes.engine.command.CommandManager;
-import de.kxmpetentes.engine.json.JsonConfiguration;
+import de.kxmpetentes.engine.json.DeprecatedJsonConfiguration;
 import de.kxmpetentes.engine.manager.GuildCacheManager;
 import de.kxmpetentes.engine.manager.MongoAPI;
 import de.kxmpetentes.engine.manager.TopGGManager;
@@ -102,11 +102,11 @@ public class DiscordCore {
 
     public void enableMongoDB() {
 
-        JsonConfiguration jsonConfiguration;
+        DeprecatedJsonConfiguration jsonConfiguration;
         File file = new File("config.json");
 
         if (!file.exists()) {
-            jsonConfiguration = new JsonConfiguration();
+            jsonConfiguration = new DeprecatedJsonConfiguration();
             jsonConfiguration.append("host", "localhost");
             jsonConfiguration.append("port", 27017);
             jsonConfiguration.append("user", "root");
@@ -121,7 +121,7 @@ public class DiscordCore {
             return;
         }
 
-        jsonConfiguration = JsonConfiguration.loadDocument(file);
+        jsonConfiguration = DeprecatedJsonConfiguration.loadDocument(file);
 
         System.out.println(DeprecatedConsoleColors.RED + "Versuche MongoDB zu verbinden!");
         try {

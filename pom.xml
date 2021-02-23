@@ -6,7 +6,7 @@
 
     <groupId>de.kxmpetentes</groupId>
     <artifactId>DiscordCore</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>DiscordEngine</name>
@@ -96,10 +96,15 @@
 
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <name>GitHub kxmpetentes Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/kxmpetentes/DiscordEngine</url>
+            <id>discordcore-repo-releases</id>
+            <name>a0dwrl0hyrey5-artifactory-primary-0-releases</name>
+            <url>https://spotifynutzer.jfrog.io/artifactory/DiscordCore</url>
         </repository>
+        <snapshotRepository>
+            <id>discordcore-repo-snapshots</id>
+            <name>a0dwrl0hyrey5-artifactory-primary-0-snapshots</name>
+            <url>https://spotifynutzer.jfrog.io/artifactory/DiscordCore</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <properties>

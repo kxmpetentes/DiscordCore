@@ -18,7 +18,8 @@ import java.util.*;
  * Erstellt am: 05.01.2021 um 13:40
  */
 
-public class JsonConfiguration {
+@Deprecated
+public class DeprecatedJsonConfiguration {
 
 
     public static Gson GSON = new GsonBuilder().serializeNulls().setPrettyPrinting().disableHtmlEscaping().create();
@@ -29,50 +30,50 @@ public class JsonConfiguration {
 
     protected JsonObject dataCatcher;
 
-    public JsonConfiguration(String name) {
+    public DeprecatedJsonConfiguration(String name) {
         this.name = name;
         this.dataCatcher = new JsonObject();
     }
 
-    public JsonConfiguration(String name, JsonObject source) {
+    public DeprecatedJsonConfiguration(String name, JsonObject source) {
         this.name = name;
         this.dataCatcher = source;
     }
 
-    public JsonConfiguration(File file, JsonObject jsonObject) {
+    public DeprecatedJsonConfiguration(File file, JsonObject jsonObject) {
         this.file = file;
         this.dataCatcher = jsonObject;
     }
 
-    public JsonConfiguration(String key, String value) {
+    public DeprecatedJsonConfiguration(String key, String value) {
         this.dataCatcher = new JsonObject();
         this.append(key, value);
     }
 
-    public JsonConfiguration(String key, Object value) {
+    public DeprecatedJsonConfiguration(String key, Object value) {
         this.dataCatcher = new JsonObject();
         this.append(key, value);
     }
 
-    public JsonConfiguration(String key, Number value) {
+    public DeprecatedJsonConfiguration(String key, Number value) {
         this.dataCatcher = new JsonObject();
         this.append(key, value);
     }
 
-    public JsonConfiguration(JsonConfiguration defaults) {
+    public DeprecatedJsonConfiguration(DeprecatedJsonConfiguration defaults) {
         this.dataCatcher = defaults.dataCatcher;
     }
 
-    public JsonConfiguration(JsonConfiguration defaults, String name) {
+    public DeprecatedJsonConfiguration(DeprecatedJsonConfiguration defaults, String name) {
         this.dataCatcher = defaults.dataCatcher;
         this.name = name;
     }
 
-    public JsonConfiguration() {
+    public DeprecatedJsonConfiguration() {
         this.dataCatcher = new JsonObject();
     }
 
-    public JsonConfiguration(JsonObject source) {
+    public DeprecatedJsonConfiguration(JsonObject source) {
         this.dataCatcher = source;
     }
 
@@ -94,13 +95,13 @@ public class JsonConfiguration {
         this.dataCatcher.addProperty(key, value);
     }
 
-    public JsonConfiguration append(String key, Boolean value) {
+    public DeprecatedJsonConfiguration append(String key, Boolean value) {
         if (value == null) return this;
         this.dataCatcher.addProperty(key, value);
         return this;
     }
 
-    public JsonConfiguration append(String key, List<String> value) {
+    public DeprecatedJsonConfiguration append(String key, List<String> value) {
         if (value == null) return this;
         JsonArray jsonElements = new JsonArray();
 
@@ -112,23 +113,23 @@ public class JsonConfiguration {
         return this;
     }
 
-    public void append(String key, JsonConfiguration value) {
+    public void append(String key, DeprecatedJsonConfiguration value) {
         if (value == null) return;
         this.dataCatcher.add(key, value.dataCatcher);
     }
 
     @Deprecated
-    public JsonConfiguration append(String key, Object value) {
+    public DeprecatedJsonConfiguration append(String key, Object value) {
         if (value == null) return this;
-        if (value instanceof JsonConfiguration) {
-            this.append(key, (JsonConfiguration) value);
+        if (value instanceof DeprecatedJsonConfiguration) {
+            this.append(key, (DeprecatedJsonConfiguration) value);
             return this;
         }
         this.dataCatcher.add(key, GSON.toJsonTree(value));
         return this;
     }
 
-    public JsonConfiguration appendValues(Map<String, Object> values) {
+    public DeprecatedJsonConfiguration appendValues(Map<String, Object> values) {
         for (Map.Entry<String, Object> valuess : values.entrySet()) {
             append(valuess.getKey(), valuess.getValue());
         }
@@ -196,12 +197,12 @@ public class JsonConfiguration {
         return GSON.fromJson(element, class_);
     }
 
-    public JsonConfiguration getDocument(String key) {
+    public DeprecatedJsonConfiguration getDocument(String key) {
         if (!dataCatcher.has(key)) return null;
-        return new JsonConfiguration(dataCatcher.get(key).getAsJsonObject());
+        return new DeprecatedJsonConfiguration(dataCatcher.get(key).getAsJsonObject());
     }
 
-    public JsonConfiguration clear() {
+    public DeprecatedJsonConfiguration clear() {
         for (String key : keys()) {
             remove(key);
         }
@@ -212,7 +213,7 @@ public class JsonConfiguration {
         return this.dataCatcher.size();
     }
 
-    public JsonConfiguration loadProperties(Properties properties) {
+    public DeprecatedJsonConfiguration loadProperties(Properties properties) {
         Enumeration<?> enumeration = properties.propertyNames();
         while (enumeration.hasMoreElements()) {
             Object x = enumeration.nextElement();
@@ -261,32 +262,32 @@ public class JsonConfiguration {
         return saveAsConfig(Paths.get(path));
     }
 
-    public static JsonConfiguration loadDocument(File backend) {
+    public static DeprecatedJsonConfiguration loadDocument(File backend) {
         return loadDocument(backend.toPath());
     }
 
-    public JsonConfiguration JsonConfiguration(File backend) throws Exception {
+    public DeprecatedJsonConfiguration JsonConfiguration(File backend) throws Exception {
         try {
-            return new JsonConfiguration(PARSER.parse(new String(Files.readAllBytes(backend.toPath()), StandardCharsets.UTF_8)).getAsJsonObject());
+            return new DeprecatedJsonConfiguration(PARSER.parse(new String(Files.readAllBytes(backend.toPath()), StandardCharsets.UTF_8)).getAsJsonObject());
         } catch (Exception ex) {
             throw new Exception(ex);
         }
     }
 
-    public static JsonConfiguration loadDocument(Path backend) {
+    public static DeprecatedJsonConfiguration loadDocument(Path backend) {
 
         try (InputStreamReader reader = new InputStreamReader(Files.newInputStream(backend), StandardCharsets.UTF_8);
              BufferedReader bufferedReader = new BufferedReader(reader)) {
             JsonObject object = PARSER.parse(bufferedReader).getAsJsonObject();
-            return new JsonConfiguration(object);
+            return new DeprecatedJsonConfiguration(object);
         } catch (Exception ex) {
             ex.getStackTrace();
         }
-        return new JsonConfiguration();
+        return new DeprecatedJsonConfiguration();
 
     }
 
-    public JsonConfiguration loadToExistingDocument(File backend) {
+    public DeprecatedJsonConfiguration loadToExistingDocument(File backend) {
         try (InputStreamReader reader = new InputStreamReader(new FileInputStream(backend), StandardCharsets.UTF_8)) {
 
             this.dataCatcher = PARSER.parse(reader).getAsJsonObject();
@@ -295,10 +296,10 @@ public class JsonConfiguration {
         } catch (Exception ex) {
             ex.getStackTrace();
         }
-        return new JsonConfiguration();
+        return new DeprecatedJsonConfiguration();
     }
 
-    public JsonConfiguration loadToExistingDocument(Path path) {
+    public DeprecatedJsonConfiguration loadToExistingDocument(Path path) {
         try (InputStreamReader reader = new InputStreamReader(Files.newInputStream(path), StandardCharsets.UTF_8)) {
 
             this.dataCatcher = PARSER.parse(reader).getAsJsonObject();
@@ -306,16 +307,16 @@ public class JsonConfiguration {
         } catch (Exception ex) {
             ex.getStackTrace();
         }
-        return new JsonConfiguration();
+        return new DeprecatedJsonConfiguration();
     }
 
-    public static JsonConfiguration load(String input) {
+    public static DeprecatedJsonConfiguration load(String input) {
         try (InputStreamReader reader = new InputStreamReader(new StringBufferInputStream(input), "UTF-8")) {
-            return new JsonConfiguration(PARSER.parse(new BufferedReader(reader)).getAsJsonObject());
+            return new DeprecatedJsonConfiguration(PARSER.parse(new BufferedReader(reader)).getAsJsonObject());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new JsonConfiguration();
+        return new DeprecatedJsonConfiguration();
     }
 
     @Override
@@ -323,8 +324,8 @@ public class JsonConfiguration {
         return convertToJsonString();
     }
 
-    public static JsonConfiguration load(JsonObject input) {
-        return new JsonConfiguration(input);
+    public static DeprecatedJsonConfiguration load(JsonObject input) {
+        return new DeprecatedJsonConfiguration(input);
     }
 
     public <T> T getObject(String key, Type type) {
