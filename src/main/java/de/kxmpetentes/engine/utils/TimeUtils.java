@@ -122,19 +122,19 @@ public class TimeUtils {
     public static long toMillis(String s) {
         s = s.toLowerCase();
         long val = 0;
-        String working = "";
+        StringBuilder working = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
             if (Character.isDigit(s.charAt(i))) {
-                working += s.charAt(i);
+                working.append(s.charAt(i));
             } else if (TIME_SYMBOLS.containsKey(s.charAt(i))) {
-                if (!working.isEmpty()) {
-                    val += Misc.parseInt(working, 0) * TIME_SYMBOLS.get(s.charAt(i));
-                    working = "";
+                if (working.length() > 0) {
+                    val += Misc.parseInt(working.toString(), 0) * TIME_SYMBOLS.get(s.charAt(i));
+                    working = new StringBuilder();
                 }
             }
         }
         if (working.length() != 0) {
-            val += Misc.parseInt(working, 0);
+            val += Misc.parseInt(working.toString(), 0);
         }
         return val;
     }

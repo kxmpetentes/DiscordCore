@@ -53,16 +53,16 @@ public class Misc {
 
     public static String makeProgressbar(int max, int current) {
         int parts = 8;
-        String bar = "";
+        StringBuilder bar = new StringBuilder();
         int activeBLock = Math.min(parts - 1, (int) ((float) current / (float) max * (float) parts));
         for (int i = 0; i < parts; i++) {
             if (i == activeBLock) {
-                bar += ":large_orange_diamond:";
+                bar.append(":large_orange_diamond:");
             } else {
-                bar += "▬";
+                bar.append("▬");
             }
         }
-        return bar;
+        return bar.toString();
     }
 
     public static String makeStackedBar(int max, int bar, String barChar) {
@@ -200,7 +200,7 @@ public class Misc {
      */
     public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
         List<Map.Entry<K, V>> list = new LinkedList<>(map.entrySet());
-        Collections.sort(list, (o1, o2) -> -(o1.getValue()).compareTo(o2.getValue()));
+        list.sort((o1, o2) -> -(o1.getValue()).compareTo(o2.getValue()));
 
         Map<K, V> result = new LinkedHashMap<>();
         for (Map.Entry<K, V> entry : list) {
@@ -230,12 +230,12 @@ public class Misc {
      */
     public static String joinStrings(String[] strings, int startIndex, int endIndex) {
         if (startIndex < strings.length) {
-            String ret = strings[startIndex];
+            StringBuilder ret = new StringBuilder(strings[startIndex]);
             endIndex = Math.min(endIndex, strings.length);
             for (int i = startIndex + 1; i < endIndex; i++) {
-                ret += " " + strings[i];
+                ret.append(" ").append(strings[i]);
             }
-            return ret;
+            return ret.toString();
         }
         return "";
     }

@@ -12,7 +12,6 @@ import java.util.concurrent.ThreadLocalRandom;
  * Erstellt am: 04.01.2021 um 22:16
  */
 
-
 @Deprecated
 public class DeprecatedColorModel {
 

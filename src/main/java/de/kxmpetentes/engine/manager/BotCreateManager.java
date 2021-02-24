@@ -7,6 +7,7 @@ import de.kxmpetentes.engine.listener.CommandListener;
 import de.kxmpetentes.engine.listener.JoinGuildListener;
 import de.kxmpetentes.engine.listener.QuitGuildListener;
 import de.kxmpetentes.engine.listener.ShutdownListener;
+import lombok.Getter;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.EventListener;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
  * Erstellt am: 07.01.2021 um 15:25
  */
 
+@Getter
 public class BotCreateManager {
 
     private final String token;
@@ -86,31 +88,4 @@ public class BotCreateManager {
         return defaultShardManagerBuilder.build();
     }
 
-    public DiscordCore getDiscordCore() {
-        return discordCore;
-    }
-
-    public OnlineStatus getOnlineStatus() {
-        return onlineStatus;
-    }
-
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public ArrayList<CommandExecuter> getCommandExecuters() {
-        return commandExecuters;
-    }
-
-    public ArrayList<EventListener> getListener() {
-        return listener;
-    }
-
-    public DefaultShardManagerBuilder getDefaultShardManagerBuilder() {
-        return defaultShardManagerBuilder;
-    }
 }

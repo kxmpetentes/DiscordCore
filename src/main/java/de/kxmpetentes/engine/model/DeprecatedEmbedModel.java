@@ -1,13 +1,15 @@
 package de.kxmpetentes.engine.model;
 
 import de.kxmpetentes.engine.DiscordCore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
-import java.time.OffsetDateTime;
 import java.time.temporal.TemporalAccessor;
 
 /**
@@ -19,6 +21,9 @@ import java.time.temporal.TemporalAccessor;
  */
 
 @Deprecated
+@RequiredArgsConstructor
+@AllArgsConstructor
+@Data
 public class DeprecatedEmbedModel {
 
     private String author;
@@ -32,21 +37,6 @@ public class DeprecatedEmbedModel {
     private EmbedBuilder embedBuilder = new EmbedBuilder();
     private TemporalAccessor timestep;
     private String authorLink;
-
-    public DeprecatedEmbedModel(String text) {
-        this.text = text;
-    }
-
-    public DeprecatedEmbedModel(String title, String author, String image, Color color, String text, String thumbnail, String footer) {
-        this.title = title;
-        this.author = author;
-        this.image = image;
-        this.color = color;
-        this.text = text;
-        this.thumbnail = thumbnail;
-        this.timestep = OffsetDateTime.now();
-        this.footer = footer;
-    }
 
     public DeprecatedEmbedModel createMessage() {
         embedBuilder.setTitle(title);
@@ -81,54 +71,6 @@ public class DeprecatedEmbedModel {
 
     public void reply(Message message, EmbedBuilder embedBuilder) {
         message.reply(embedBuilder.build()).queue();
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setAuthorLink(String authorLink) {
-        this.authorLink = authorLink;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public EmbedBuilder getEmbedBuilder() {
-        return embedBuilder;
-    }
-
-    public void setEmbedBuilder(EmbedBuilder embedBuilder) {
-        this.embedBuilder = embedBuilder;
-    }
-
-    public void setFooter(String footer) {
-        this.footer = footer;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setTimestep(TemporalAccessor timestep) {
-        this.timestep = timestep;
-    }
-
-    public void setFooterIcon(String footerIcon) {
-        this.footerIcon = footerIcon;
     }
 
     public void setFooterIcon() {

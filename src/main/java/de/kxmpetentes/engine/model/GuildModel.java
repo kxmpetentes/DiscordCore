@@ -1,6 +1,8 @@
 package de.kxmpetentes.engine.model;
 
 import de.kxmpetentes.engine.language.LanguageTypes;
+import lombok.Getter;
+import lombok.Setter;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -14,6 +16,8 @@ import org.bson.Document;
  * Erstellt am: 05.01.2021 um 15:09
  */
 
+@Getter
+@Setter
 public class GuildModel {
 
     private final Guild guild;
@@ -55,59 +59,4 @@ public class GuildModel {
         this.autoRole = autoRole;
     }
 
-    public Guild getGuild() {
-        return guild;
-    }
-
-    public String getGuildId() {
-        return guildId;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public LanguageTypes getLanguage() {
-        return language;
-    }
-
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
-
-    public void setLanguage(LanguageTypes language) {
-        this.language = language;
-    }
-
-    public TextChannel getJoinChannel() {
-        return joinChannel;
-    }
-
-    public TextChannel getQuitChannel() {
-        return quitChannel;
-    }
-
-    public void setJoinChannel(TextChannel joinChannel) {
-        this.joinChannel = joinChannel;
-    }
-
-    public void setQuitChannel(TextChannel quitChannel) {
-        this.quitChannel = quitChannel;
-    }
-
-    public Role getAutoRole() {
-        return autoRole;
-    }
-
-    public void setAutoRole(Role autoRole) {
-        this.autoRole = autoRole;
-    }
-
-    public Document getGuildDocument() {
-        return guildDocument;
-    }
-
-    public void setGuildDocument(Document guildDocument) {
-        this.guildDocument = guildDocument;
-    }
 }
