@@ -6,7 +6,7 @@
 
     <groupId>de.kxmpetentes</groupId>
     <artifactId>DiscordCore</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>DiscordEngine</name>

@@ -3,9 +3,7 @@ package de.kxmpetentes.engine.listener;
 import de.kxmpetentes.engine.DiscordCore;
 import de.kxmpetentes.engine.language.LanguageTypes;
 import de.kxmpetentes.engine.manager.GuildCacheManager;
-import de.kxmpetentes.engine.model.DeprecatedConsoleColors;
-import de.kxmpetentes.engine.model.DeprecatedEmbedModel;
-import de.kxmpetentes.engine.model.GuildModel;
+import de.kxmpetentes.engine.model.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -72,16 +70,16 @@ public class CommandListener extends ListenerAdapter {
             if (args.length > 0) {
                 try {
                     if (discordCore.getCommandManager().performedCommand(args[0], member, channel, event.getMessage())) {
-                        System.out.println(DeprecatedConsoleColors.RED + guild.getName() + ": " + member.getUser().getName() + DeprecatedConsoleColors.WHITE + ": " + event.getMessage().getContentDisplay() + DeprecatedConsoleColors.RESET);
+                        System.out.println(ConsoleColors.RED + guild.getName() + ": " + member.getUser().getName() + DeprecatedConsoleColors.WHITE + ": " + event.getMessage().getContentDisplay() + DeprecatedConsoleColors.RESET);
                     }
                 } catch (Exception e) {
-                    new DeprecatedEmbedModel("**Fehler!**",
+                    new EmbedModel("**Fehler!**",
                             null,
                             null,
                             Color.red,
                             "Exception: " + e.getClass().getName() + "\n",
                             null,
-                            guild.getName()).createMessage().sendTextChannel(channel);
+                            guild.getName()).createMessage().sendToTextChannel(channel);
 
                     e.printStackTrace();
                 }

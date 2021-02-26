@@ -105,4 +105,7 @@ public class DiscordCore {
         }
     }
 
+    public boolean isMongoDBEnabled() {
+        return mongoDB;
+    }
 }
