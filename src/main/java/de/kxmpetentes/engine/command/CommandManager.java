@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 public class CommandManager {
 
-    private final ArrayList<CommandExecuter> commands;
+    private final ArrayList<CommandExecutor> commands;
 
     public CommandManager() {
         commands = new ArrayList<>();
@@ -26,21 +26,21 @@ public class CommandManager {
     /**
      * @param commands arraylist of commands
      */
-    public CommandManager(ArrayList<CommandExecuter> commands) {
+    public CommandManager(ArrayList<CommandExecutor> commands) {
         this.commands = commands;
     }
 
     /**
      * @param commandExecuter add new command to the commandlist
      */
-    public void addCommand(CommandExecuter commandExecuter) {
+    public void addCommand(CommandExecutor commandExecuter) {
         commands.add(commandExecuter);
     }
 
     /**
      * @param commandExecuters add an array of commands to the commandlist
      */
-    public void addCommands(CommandExecuter... commandExecuters) {
+    public void addCommands(CommandExecutor... commandExecuters) {
         commands.addAll(Arrays.asList(commandExecuters));
     }
 
@@ -48,7 +48,7 @@ public class CommandManager {
         String[] args = message.getContentRaw().split(" ");
         if (member.getUser().isBot()) return false;
 
-        for (CommandExecuter cmd : this.commands) {
+        for (CommandExecutor cmd : this.commands) {
             if (cmd.getCommand().equalsIgnoreCase(command)) {
 
                 cmd.onCommand(member, channel, args, message);
@@ -64,7 +64,7 @@ public class CommandManager {
     /**
      * @return all commands
      */
-    public ArrayList<CommandExecuter> getCommands() {
+    public ArrayList<CommandExecutor> getCommands() {
         return commands;
     }
 

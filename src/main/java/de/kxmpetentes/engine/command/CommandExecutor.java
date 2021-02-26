@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
  * Erstellt am: 04.01.2021 um 21:42
  */
 
-public interface CommandExecuter {
+public interface CommandExecutor {
 
     /**
      * @param member that runs the command

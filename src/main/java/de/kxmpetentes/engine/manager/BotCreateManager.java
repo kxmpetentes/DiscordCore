@@ -1,7 +1,7 @@
 package de.kxmpetentes.engine.manager;
 
 import de.kxmpetentes.engine.DiscordCore;
-import de.kxmpetentes.engine.command.CommandExecuter;
+import de.kxmpetentes.engine.command.CommandExecutor;
 import de.kxmpetentes.engine.command.CommandManager;
 import de.kxmpetentes.engine.listener.CommandListener;
 import de.kxmpetentes.engine.listener.JoinGuildListener;
@@ -37,7 +37,7 @@ public class BotCreateManager {
     private final DefaultShardManagerBuilder defaultShardManagerBuilder;
 
     private DiscordCore discordCore;
-    private ArrayList<CommandExecuter> commandExecuters;
+    private ArrayList<CommandExecutor> commandExecuters;
     private ArrayList<EventListener> listener;
 
     public BotCreateManager(String token, Activity activity, OnlineStatus onlineStatus) {
@@ -49,7 +49,7 @@ public class BotCreateManager {
 
     public BotCreateManager(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity,
                             ArrayList<GatewayIntent> gatewayIntents, ArrayList<EventListener> listener,
-                            ArrayList<CommandExecuter> commandExecuters) {
+                            ArrayList<CommandExecutor> commandExecuters) {
         this.discordCore = discordCore;
         this.token = token;
         this.onlineStatus = onlineStatus;
@@ -75,7 +75,7 @@ public class BotCreateManager {
         defaultShardManagerBuilder.addEventListeners(new ShutdownListener(discordCore));
 
         CommandManager commandManager = discordCore.getCommandManager();
-        for (CommandExecuter commandExecuter : commandExecuters) {
+        for (CommandExecutor commandExecuter : commandExecuters) {
             commandManager.addCommand(commandExecuter);
         }
 

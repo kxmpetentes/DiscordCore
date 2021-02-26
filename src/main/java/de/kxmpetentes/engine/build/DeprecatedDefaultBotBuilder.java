@@ -1,7 +1,7 @@
 package de.kxmpetentes.engine.build;
 
 import de.kxmpetentes.engine.DiscordCore;
-import de.kxmpetentes.engine.command.CommandExecuter;
+import de.kxmpetentes.engine.command.CommandExecutor;
 import de.kxmpetentes.engine.manager.BotCreateManager;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -20,7 +20,8 @@ import java.util.ArrayList;
  * Erstellt am: 04.01.2021 um 22:25
  */
 
-public class DefaultBotBuilder {
+@Deprecated
+public class DeprecatedDefaultBotBuilder {
 
     private final DiscordCore discordCore;
     private final String token;
@@ -29,17 +30,17 @@ public class DefaultBotBuilder {
 
     private ArrayList<GatewayIntent> gatewayIntents;
     private ArrayList<EventListener> eventListeners;
-    private ArrayList<CommandExecuter> commandExecuters;
+    private ArrayList<CommandExecutor> commandExecuters;
 
-    public DefaultBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity) {
+    public DeprecatedDefaultBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity) {
         this.discordCore = discordCore;
         this.token = token;
         this.onlineStatus = onlineStatus;
         this.activity = activity;
     }
 
-    public DefaultBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity, ArrayList<GatewayIntent> gatewayIntents,
-                             ArrayList<EventListener> eventListeners, ArrayList<CommandExecuter> commandExecuters) {
+    public DeprecatedDefaultBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity, ArrayList<GatewayIntent> gatewayIntents,
+                                       ArrayList<EventListener> eventListeners, ArrayList<CommandExecutor> commandExecuters) {
         this.discordCore = discordCore;
         this.token = token;
         this.onlineStatus = onlineStatus;
