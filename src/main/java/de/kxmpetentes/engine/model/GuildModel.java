@@ -1,6 +1,6 @@
 package de.kxmpetentes.engine.model;
 
-import de.kxmpetentes.engine.language.LanguageTypes;
+import de.kxmpetentes.engine.language.DeprecatedLanguageTypes;
 import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.api.entities.Guild;
@@ -24,13 +24,13 @@ public class GuildModel {
     private final String guildId;
 
     private String prefix;
-    private LanguageTypes language;
+    private DeprecatedLanguageTypes language;
     private TextChannel joinChannel;
     private TextChannel quitChannel;
     private Role autoRole;
     private Document guildDocument;
 
-    public GuildModel(Guild guild, String prefix, LanguageTypes language) {
+    public GuildModel(Guild guild, String prefix, DeprecatedLanguageTypes language) {
         this.guild = guild;
         this.guildId = guild.getId();
 
@@ -38,7 +38,7 @@ public class GuildModel {
         this.language = language;
     }
 
-    public GuildModel(Guild guild, String prefix, LanguageTypes language, TextChannel joinChannel, TextChannel quitChannel) {
+    public GuildModel(Guild guild, String prefix, DeprecatedLanguageTypes language, TextChannel joinChannel, TextChannel quitChannel) {
         this.guild = guild;
         this.guildId = guild.getId();
 
@@ -48,7 +48,7 @@ public class GuildModel {
         this.quitChannel = quitChannel;
     }
 
-    public GuildModel(Guild guild, String prefix, LanguageTypes language, TextChannel joinChannel, TextChannel quitChannel, Role autoRole) {
+    public GuildModel(Guild guild, String prefix, DeprecatedLanguageTypes language, TextChannel joinChannel, TextChannel quitChannel, Role autoRole) {
         this.guild = guild;
         this.guildId = guild.getId();
 

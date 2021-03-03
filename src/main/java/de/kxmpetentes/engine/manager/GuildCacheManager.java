@@ -2,7 +2,7 @@ package de.kxmpetentes.engine.manager;
 
 import com.mongodb.client.model.Filters;
 import de.kxmpetentes.engine.DiscordCore;
-import de.kxmpetentes.engine.language.LanguageTypes;
+import de.kxmpetentes.engine.language.DeprecatedLanguageTypes;
 import de.kxmpetentes.engine.model.GuildModel;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
@@ -37,7 +37,7 @@ public class GuildCacheManager {
                 if (document != null) {
 
                     String prefix = discordCore.getPrefix();
-                    LanguageTypes language = LanguageTypes.DE;
+                    DeprecatedLanguageTypes language = DeprecatedLanguageTypes.DE;
                     TextChannel joinChannel = guild.getTextChannelById(Long.MIN_VALUE);
                     TextChannel quitChannel = guild.getTextChannelById(Long.MIN_VALUE);
                     Role autoRole = guild.getRoleById(Long.MIN_VALUE);
@@ -47,7 +47,7 @@ public class GuildCacheManager {
                     }
 
                     if (document.containsKey("language")) {
-                        language = LanguageTypes.getTypeByID(document.getInteger("language"));
+                        language = DeprecatedLanguageTypes.getTypeByID(document.getInteger("language"));
                     }
 
                     if (document.containsKey("joinChannel")) {
@@ -84,7 +84,7 @@ public class GuildCacheManager {
                     guildCache.put(guild.getIdLong(), guildModel);
                 } else {
 
-                    GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix(), LanguageTypes.DE);
+                    GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix(), DeprecatedLanguageTypes.DE);
                     addNewGuild(guildModel);
                     guildCache.put(guild.getIdLong(), guildModel);
 
@@ -118,7 +118,7 @@ public class GuildCacheManager {
     }
 
     public void addGuildToCache(Guild guild) {
-        GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix(), LanguageTypes.DE);
+        GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix(), DeprecatedLanguageTypes.DE);
         guildCache.put(guild.getIdLong(), guildModel);
 
         addNewGuild(guildModel);

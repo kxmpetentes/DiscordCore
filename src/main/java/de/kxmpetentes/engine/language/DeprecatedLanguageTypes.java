@@ -8,7 +8,8 @@ package de.kxmpetentes.engine.language;
  * Erstellt am: 05.01.2021 um 03:49
  */
 
-public enum LanguageTypes {
+@Deprecated
+public enum DeprecatedLanguageTypes {
 
     DE("German", 0),
     EN("English", 1);
@@ -16,7 +17,7 @@ public enum LanguageTypes {
     final String type;
     final int id;
 
-    LanguageTypes(String type, int id) {
+    DeprecatedLanguageTypes(String type, int id) {
         this.type = type;
         this.id = id;
     }
@@ -33,8 +34,8 @@ public enum LanguageTypes {
      * @return languagetype
      * @throws NullPointerException id can be null
      */
-    public static LanguageTypes getTypeByID(int id) {
-        for (LanguageTypes language : values()) {
+    public static DeprecatedLanguageTypes getTypeByID(int id) {
+        for (DeprecatedLanguageTypes language : values()) {
             if (language.getId() == id) {
                 return language;
             }
@@ -47,8 +48,8 @@ public enum LanguageTypes {
      * @return languagetype
      * @throws NullPointerException name can be null
      */
-    public static LanguageTypes getTypeByName(String name) {
-        for (LanguageTypes language : values()) {
+    public static DeprecatedLanguageTypes getTypeByName(String name) {
+        for (DeprecatedLanguageTypes language : values()) {
             if (language.getType().equals(name)) {
                 return language;
             }

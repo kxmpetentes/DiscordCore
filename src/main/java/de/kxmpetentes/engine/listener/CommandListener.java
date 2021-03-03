@@ -1,7 +1,7 @@
 package de.kxmpetentes.engine.listener;
 
 import de.kxmpetentes.engine.DiscordCore;
-import de.kxmpetentes.engine.language.LanguageTypes;
+import de.kxmpetentes.engine.language.DeprecatedLanguageTypes;
 import de.kxmpetentes.engine.manager.GuildCacheManager;
 import de.kxmpetentes.engine.model.*;
 import net.dv8tion.jda.api.JDA;
@@ -52,7 +52,7 @@ public class CommandListener extends ListenerAdapter {
         }
 
         if (guildModel == null) {
-            guildModel = new GuildModel(guild, discordCore.getPrefix(), LanguageTypes.DE);
+            guildModel = new GuildModel(guild, discordCore.getPrefix(), DeprecatedLanguageTypes.DE);
         }
         
         prefix = guildModel.getPrefix();

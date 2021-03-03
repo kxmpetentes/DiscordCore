@@ -32,15 +32,15 @@ Maven
 Gradle
 ````gradle
 allprojects {
-	repositories {
-		...
-		maven { url 'https://spotifynutzer.jfrog.io/artifactory/DiscordCore/' }
+    repositories {
+        ...
+        maven { url 'https://spotifynutzer.jfrog.io/artifactory/DiscordCore/' }
 	}
 }
 ````
 ````gradle
 dependencies {
-        implementation 'de.kxmpetentes:DiscordEngine:VERSION'
+    implementation 'de.kxmpetentes:DiscordEngine:VERSION'
 }
 ````
 
