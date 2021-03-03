@@ -46,10 +46,10 @@ dependencies {
 
 <h3>Examples</h3>
 
-[HastebinCommand](https://github.com/kxmpetentes/DiscordCore/docs/examples/HastebinCommandExample.md)
+[HastebinCommand](https://github.com/kxmpetentes/DiscordCore/blob/master/docs/examples/HastebinCommandExample.md)
 
-[CustomPrefixCommand](https://github.com/kxmpetentes/DiscordCore/docs/examples/CustomPrefixCommandExample.md)
+[CustomPrefixCommand](https://github.com/kxmpetentes/DiscordCore/blob/master/docs/examples/CustomPrefixCommandExample.md)
 
-[NameHistoryCommand](https://github.com/kxmpetentes/DiscordCore/docs/examples/NameHistoryCommandExample.md)
+[NameHistoryCommand](https://github.com/kxmpetentes/DiscordCore/blob/master/docs/examples/NameHistoryCommandExample.md)
 
 
