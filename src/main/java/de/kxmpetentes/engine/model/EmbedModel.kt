@@ -7,15 +7,17 @@ import net.dv8tion.jda.api.entities.TextChannel
 import java.awt.Color
 import java.time.Duration
 import java.time.OffsetDateTime
+import javax.annotation.Nonnull
+import javax.annotation.Nullable
 
 data class EmbedModel(
-    var title: String,
-    var author: String,
-    var image: String,
-    var color: Color,
-    var text: String,
-    var thumbnail: String,
-    var footer: String,
+    @Nonnull var title: String,
+    @Nonnull var author: String,
+    @Nullable var image: String,
+    @Nonnull var color: Color,
+    @Nullable var text: String,
+    @Nullable var thumbnail: String,
+    @Nullable var footer: String,
 ) {
 
     private var embedBuilder: EmbedBuilder = EmbedBuilder()
