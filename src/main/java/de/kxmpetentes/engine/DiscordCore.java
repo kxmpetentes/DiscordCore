@@ -8,6 +8,7 @@ import de.kxmpetentes.engine.manager.GuildCacheManager;
 import de.kxmpetentes.engine.manager.MongoAPI;
 import de.kxmpetentes.engine.manager.TopGGManager;
 import de.kxmpetentes.engine.model.ConsoleColors;
+import de.kxmpetentes.engine.utils.minecraft.UUIDFetcher;
 import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.api.JDA;
@@ -43,6 +44,7 @@ public class DiscordCore {
         this.prefix = prefix;
         this.botIconURL = "";
         this.commandManager = new CommandManager();
+
     }
 
     public DiscordCore(String prefix, String botIconURL) {

@@ -1,4 +1,4 @@
-package de.kxmpetentes.engine.utils
+package de.kxmpetentes.engine.utils.hastebin
 
 import java.io.*
 import java.net.URL
