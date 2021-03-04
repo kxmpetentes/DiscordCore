@@ -44,12 +44,7 @@ dependencies {
 }
 ````
 
-<h3>Examples</h3>
+<h3>Docs</h3>
 
-[HastebinCommand](https://github.com/kxmpetentes/DiscordCore/blob/master/docs/examples/HastebinCommandExample.md)
-
-[CustomPrefixCommand](https://github.com/kxmpetentes/DiscordCore/blob/master/docs/examples/CustomPrefixCommandExample.md)
-
-[NameHistoryCommand](https://github.com/kxmpetentes/DiscordCore/blob/master/docs/examples/NameHistoryCommandExample.md)
-
+[Documentation & Examples](https://github.com/kxmpetentes/DiscordCore/wiki)
 
