@@ -20,6 +20,8 @@
 *.rar
 
 target
+.idea
+DiscordCore.iml
 config.json
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
