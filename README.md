@@ -9,6 +9,7 @@ Maven
 ````xml
 <repositories>
 
+    <!-- Discord Core Repo -->
     <repository>
         <id>discordcore-repo</id>
         <url>https://spotifynutzer.jfrog.ip/artifactory/DiscordCore</url>
