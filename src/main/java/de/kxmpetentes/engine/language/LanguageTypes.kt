@@ -1,7 +1,5 @@
 package de.kxmpetentes.engine.language
 
-import kotlin.properties.Delegates
-
 enum class LanguageTypes(s: String, i: Int) {
 
     DE("German", 1),
