@@ -31,15 +31,10 @@ public class MongoAPI {
 
         client = MongoClients.create(settings);
         mongoDatabase = client.getDatabase(DB);
+    }
 
-        System.out.println("------------------------------------------------");
-        System.out.println("Host: " + host);
-        System.out.println("Port: " + port);
-        System.out.println("User: " + username);
-        System.out.println("Auth-DB: " + authDatabase);
-        System.out.println("DB: " + DB);
-        System.out.println("------------------------------------------------");
-
+    public static boolean isConnected() {
+        return mongoDatabase != null;
     }
 
     public static MongoCollection<Document> getCollection(String collection) {
