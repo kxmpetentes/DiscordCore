@@ -161,6 +161,8 @@
             <artifactId>mongodb-driver</artifactId>
             <version>3.12.8</version>
         </dependency>
+
+        <!-- Kotlin -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
@@ -186,6 +188,8 @@
             <artifactId>lombok</artifactId>
             <version>1.18.18</version>
         </dependency>
+
+        <!-- Apache Commons -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>

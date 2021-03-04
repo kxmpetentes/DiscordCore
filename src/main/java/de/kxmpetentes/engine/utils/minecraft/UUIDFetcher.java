@@ -2,6 +2,7 @@ package de.kxmpetentes.engine.utils.minecraft;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.Getter;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,50 +12,63 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * @author kxmpetentes
+ * Website: kxmpetentes.de
+ * GitHub: git.kxmpetentes.de
+ * Erstellt am: 04.03.2021 um 20:14
+ */
+
+@Getter
 public class UUIDFetcher {
 
-
     private static final Gson gson = new GsonBuilder().registerTypeAdapter(UUID.class, new UUIDTypeAdapter()).create();
-    private static final String UUID_URL = "https://api.mojang.com/users/profiles/minecraft/%s?at=%d";
-    private static final String NAME_URL = "https://api.mojang.com/user/profiles/%s/names";
-    private static final Map<String, UUID> uuidCache = new HashMap<String, UUID>();
-    private static final Map<UUID, String> nameCache = new HashMap<UUID, String>();
-    public String name;
-    public UUID id;
+    private static final String uuidUrl = "https://api.mojang.com/users/profiles/minecraft/%s?at=%d";
+    private static final String nameUrl = "https://api.mojang.com/user/profiles/%s/names";
+    private static final Map<String, UUID> uuidCache = new HashMap<>();
+    private static final Map<UUID, String> nameCache = new HashMap<>();
+    private String name;
+    private UUID id;
 
     public static UUID getUUID(String name) {
-        return UUIDFetcher.getUUIDAt(name, System.currentTimeMillis());
+        return getUUIDAt(name, System.currentTimeMillis());
     }
 
     public static UUID getUUIDAt(String name, long timestamp) {
-        if (uuidCache.containsKey(name = name.toLowerCase())) {
+
+        if (uuidCache.containsKey(name.toLowerCase())) {
             return uuidCache.get(name);
         }
+
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(String.format(UUID_URL, name, timestamp / 1000L)).openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL(String.format(uuidUrl, name, timestamp / 1000L)).openConnection();
             connection.setReadTimeout(5000);
-            UUIDFetcher data = gson.fromJson(new BufferedReader(new InputStreamReader(connection.getInputStream())), UUIDFetcher.class);
-            if (data == null) {
-                return null;
+
+            UUIDFetcher uuidData = gson.fromJson(new BufferedReader(new InputStreamReader(connection.getInputStream())), UUIDFetcher.class);
+            if (uuidData == null) {
+                throw new NullPointerException();
             }
-            uuidCache.put(name, data.id);
-            nameCache.put(data.id, data.name);
-            return data.id;
-        } catch (Exception e2) {
-            e2.printStackTrace();
+
+            uuidCache.put(name, uuidData.getId());
+            nameCache.put(uuidData.getId(), uuidData.getName());
+
+            return uuidData.getId();
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
 
     public static NameHistory getHistory(UUID uuid) {
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(String.format(NAME_URL, UUIDTypeAdapter.fromUUID(uuid))).openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL(String.format(nameUrl, UUIDTypeAdapter.fromUUID(uuid))).openConnection();
             connection.setReadTimeout(5000);
             UUIDFetcher[] nameHistory = gson.fromJson(new BufferedReader(new InputStreamReader(connection.getInputStream())), UUIDFetcher[].class);
             return new NameHistory(uuid, nameHistory);
-        } catch (Exception e2) {
-            e2.printStackTrace();
-            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new NullPointerException();
         }
     }
+
 }

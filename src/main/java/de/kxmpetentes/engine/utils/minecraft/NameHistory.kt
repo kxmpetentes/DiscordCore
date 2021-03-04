@@ -1,10 +1,7 @@
 package de.kxmpetentes.engine.utils.minecraft
 
 import org.apache.commons.lang3.ArrayUtils
-import java.util.UUID
-
-
-
+import java.util.*
 
 class NameHistory {
 

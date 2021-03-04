@@ -1,6 +1,5 @@
 package de.kxmpetentes.engine;
 
-import de.kxmpetentes.engine.build.MongoDBBotBuilder;
 import de.kxmpetentes.engine.command.CommandManager;
 import de.kxmpetentes.engine.json.Config;
 import de.kxmpetentes.engine.json.ConfigProvider;
@@ -8,7 +7,6 @@ import de.kxmpetentes.engine.manager.GuildCacheManager;
 import de.kxmpetentes.engine.manager.MongoAPI;
 import de.kxmpetentes.engine.manager.TopGGManager;
 import de.kxmpetentes.engine.model.ConsoleColors;
-import de.kxmpetentes.engine.utils.minecraft.UUIDFetcher;
 import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.api.JDA;
@@ -37,6 +35,7 @@ public class DiscordCore {
     private boolean mongoDB = false;
     private JDA jda;
     private GuildCacheManager guildCacheManager;
+    private ConfigProvider configProvider = new ConfigProvider();
 
     public DiscordCore(String prefix) {
         instance = this;
@@ -44,7 +43,6 @@ public class DiscordCore {
         this.prefix = prefix;
         this.botIconURL = "";
         this.commandManager = new CommandManager();
-
     }
 
     public DiscordCore(String prefix, String botIconURL) {

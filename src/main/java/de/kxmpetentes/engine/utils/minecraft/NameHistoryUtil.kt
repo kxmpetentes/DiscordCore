@@ -1,11 +1,6 @@
 package de.kxmpetentes.engine.utils.minecraft
 
-import java.util.UUID
-
-import java.util.HashMap
-
-
-
+import java.util.*
 
 class NameHistoryUtil {
 
