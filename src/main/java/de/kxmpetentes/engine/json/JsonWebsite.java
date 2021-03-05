@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 /**
@@ -27,19 +28,20 @@ public class JsonWebsite {
     public JSONObject getJsonObject() throws IOException {
 
         try {
-            final InputStream inputStream = new URL(url).openStream();
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-            final String jsonText = read(reader);
+            InputStream inputStream = new URL(url).openStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+            String jsonText = read(reader);
+
+            inputStream.close();
 
             return new JSONObject(jsonText);
-
         } catch (FileNotFoundException e) {
             return null;
         }
 
     }
 
-    public ArrayList<String> getArray() throws IOException {
+    public Collection<String> getArray() throws IOException {
         ArrayList<String> values = new ArrayList<>();
 
         Scanner s = new Scanner(new URL(url).openStream());
@@ -52,7 +54,8 @@ public class JsonWebsite {
         }
         s.close();
 
-        if (values.isEmpty()) return null;
+        if (values.isEmpty()) return new ArrayList<>();
+
         return values;
     }
 

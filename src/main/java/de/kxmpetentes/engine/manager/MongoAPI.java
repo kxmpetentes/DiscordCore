@@ -21,6 +21,9 @@ import java.util.Collections;
 
 public class MongoAPI {
 
+    private MongoAPI() {
+    }
+
     private static MongoDatabase mongoDatabase;
     private static MongoClient client;
 

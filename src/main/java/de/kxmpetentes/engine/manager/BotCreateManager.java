@@ -18,7 +18,7 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
-import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author kxmpetentes
@@ -37,8 +37,8 @@ public class BotCreateManager {
     private final DefaultShardManagerBuilder defaultShardManagerBuilder;
 
     private DiscordCore discordCore;
-    private ArrayList<CommandExecutor> commandExecuters;
-    private ArrayList<EventListener> listener;
+    private Collection<CommandExecutor> commandExecuters;
+    private Collection<EventListener> listener;
 
     public BotCreateManager(String token, Activity activity, OnlineStatus onlineStatus) {
         this.token = token;
@@ -48,8 +48,8 @@ public class BotCreateManager {
     }
 
     public BotCreateManager(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity,
-                            ArrayList<GatewayIntent> gatewayIntents, ArrayList<EventListener> listener,
-                            ArrayList<CommandExecutor> commandExecuters) {
+                            Collection<GatewayIntent> gatewayIntents, Collection<EventListener> listener,
+                            Collection<CommandExecutor> commandExecuters) {
         this.discordCore = discordCore;
         this.token = token;
         this.onlineStatus = onlineStatus;

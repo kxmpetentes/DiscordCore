@@ -2,7 +2,6 @@ package de.kxmpetentes.engine.manager;
 
 import com.mongodb.client.model.Filters;
 import de.kxmpetentes.engine.DiscordCore;
-import de.kxmpetentes.engine.language.DeprecatedLanguageTypes;
 import de.kxmpetentes.engine.model.GuildModel;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
@@ -37,17 +36,12 @@ public class GuildCacheManager {
                 if (document != null) {
 
                     String prefix = discordCore.getPrefix();
-                    DeprecatedLanguageTypes language = DeprecatedLanguageTypes.DE;
                     TextChannel joinChannel = guild.getTextChannelById(Long.MIN_VALUE);
                     TextChannel quitChannel = guild.getTextChannelById(Long.MIN_VALUE);
                     Role autoRole = guild.getRoleById(Long.MIN_VALUE);
 
                     if (document.containsKey("prefix")) {
                         prefix = document.getString("prefix");
-                    }
-
-                    if (document.containsKey("language")) {
-                        language = DeprecatedLanguageTypes.getTypeByID(document.getInteger("language"));
                     }
 
                     if (document.containsKey("joinChannel")) {
@@ -79,12 +73,12 @@ public class GuildCacheManager {
                         }
                     }
 
-                    GuildModel guildModel = new GuildModel(guild, prefix, language, joinChannel, quitChannel, autoRole);
+                    GuildModel guildModel = new GuildModel(guild, prefix, joinChannel, quitChannel, autoRole);
                     guildModel.setGuildDocument(document);
                     guildCache.put(guild.getIdLong(), guildModel);
                 } else {
 
-                    GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix(), DeprecatedLanguageTypes.DE);
+                    GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix());
                     addNewGuild(guildModel);
                     guildCache.put(guild.getIdLong(), guildModel);
 
@@ -118,7 +112,7 @@ public class GuildCacheManager {
     }
 
     public void addGuildToCache(Guild guild) {
-        GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix(), DeprecatedLanguageTypes.DE);
+        GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix());
         guildCache.put(guild.getIdLong(), guildModel);
 
         addNewGuild(guildModel);
@@ -139,8 +133,6 @@ public class GuildCacheManager {
             document = new Document();
             document.append("settings", guildModel.getGuildId());
             document.append("prefix", guildModel.getPrefix());
-            document.append("language", guildModel.getLanguage().getId());
-
         }
         MongoAPI.getCollection("DiscordEngine").insertOne(updateGuildChannels(guildModel, document));
     }
@@ -152,10 +144,8 @@ public class GuildCacheManager {
         Document document = new Document();
         document.append("settings", guildModel.getGuildId());
         document.append("prefix", guildModel.getPrefix());
-        document.append("language", guildModel.getLanguage().getId());
 
         MongoAPI.getCollection("DiscordEngine").insertOne(updateGuildChannels(guildModel, document));
-
     }
 
     public void updateGuilds() {

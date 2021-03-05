@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import javax.security.auth.login.LoginException;
-import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author kxmpetentes
@@ -28,9 +28,9 @@ public class DeprecatedDefaultBotBuilder {
     private final OnlineStatus onlineStatus;
     private final Activity activity;
 
-    private ArrayList<GatewayIntent> gatewayIntents;
-    private ArrayList<EventListener> eventListeners;
-    private ArrayList<CommandExecutor> commandExecuters;
+    private Collection<GatewayIntent> gatewayIntents;
+    private Collection<EventListener> eventListeners;
+    private Collection<CommandExecutor> commandExecuters;
 
     public DeprecatedDefaultBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity) {
         this.discordCore = discordCore;
@@ -39,8 +39,8 @@ public class DeprecatedDefaultBotBuilder {
         this.activity = activity;
     }
 
-    public DeprecatedDefaultBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity, ArrayList<GatewayIntent> gatewayIntents,
-                                       ArrayList<EventListener> eventListeners, ArrayList<CommandExecutor> commandExecuters) {
+    public DeprecatedDefaultBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity, Collection<GatewayIntent> gatewayIntents,
+                                       Collection<EventListener> eventListeners, Collection<CommandExecutor> commandExecuters) {
         this.discordCore = discordCore;
         this.token = token;
         this.onlineStatus = onlineStatus;

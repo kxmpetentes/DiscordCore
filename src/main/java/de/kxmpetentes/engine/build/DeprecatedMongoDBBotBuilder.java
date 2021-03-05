@@ -3,8 +3,6 @@ package de.kxmpetentes.engine.build;
 import de.kxmpetentes.engine.DiscordCore;
 import de.kxmpetentes.engine.command.CommandExecutor;
 import de.kxmpetentes.engine.manager.BotCreateManager;
-import kotlin.DeprecatedSinceKotlin;
-import net.dv8tion.jda.annotations.DeprecatedSince;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.EventListener;
@@ -12,7 +10,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import javax.security.auth.login.LoginException;
-import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author kxmpetentes
@@ -31,9 +29,9 @@ public class DeprecatedMongoDBBotBuilder {
     private final OnlineStatus onlineStatus;
     private final Activity activity;
 
-    private ArrayList<GatewayIntent> gatewayIntents;
-    private ArrayList<EventListener> eventListeners;
-    private ArrayList<CommandExecutor> commandExecuters;
+    private Collection<GatewayIntent> gatewayIntents;
+    private Collection<EventListener> eventListeners;
+    private Collection<CommandExecutor> commandExecuters;
 
     public DeprecatedMongoDBBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity) {
         this.discordCore = discordCore;
@@ -44,8 +42,8 @@ public class DeprecatedMongoDBBotBuilder {
         discordCore.enableMongoDB();
     }
 
-    public DeprecatedMongoDBBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity, ArrayList<GatewayIntent> gatewayIntents,
-                                       ArrayList<EventListener> eventListeners, ArrayList<CommandExecutor> commandExecuters) {
+    public DeprecatedMongoDBBotBuilder(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity, Collection<GatewayIntent> gatewayIntents,
+                                       Collection<EventListener> eventListeners, Collection<CommandExecutor> commandExecuters) {
         this.discordCore = discordCore;
         this.token = token;
         this.onlineStatus = onlineStatus;

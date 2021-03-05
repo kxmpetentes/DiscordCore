@@ -1,7 +1,6 @@
 package de.kxmpetentes.engine.utils;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +15,9 @@ import java.util.Map;
 
 public class TimeUtils {
 
+    private TimeUtils() {
+    }
+
     public static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
@@ -23,10 +25,6 @@ public class TimeUtils {
     private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
     private static final SimpleDateFormat timestamp = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     private static final SimpleDateFormat ymdFormat = new SimpleDateFormat("yyyy/MM/dd");
-
-    public static String getDateTime(LocalDate localDate) {
-        return localDate.getDayOfMonth() + "." + localDate.getMonth().getValue() + "." + localDate.getYear();
-    }
 
     public static String getTimestampFormat(long time) {
         try {

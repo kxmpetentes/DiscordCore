@@ -6,6 +6,9 @@ import java.util.regex.Pattern;
 
 public class Misc {
 
+    private Misc() {
+    }
+
     private static final String[] numberToEmote = {
             "\u0030\u20E3",
             "\u0031\u20E3",
@@ -137,7 +140,7 @@ public class Misc {
     public static String emoteToNumber(String emote) {
         for (int i = 0; i < numberToEmote.length; i++) {
             if (numberToEmote[i].equals(emote)) {
-                return "" + i;
+                return String.valueOf(i);
             }
         }
         return "0";

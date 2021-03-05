@@ -10,15 +10,15 @@ import java.util.Map;
  * Erstellt am: 23.02.2021 um 09:00
  */
 
-public class Config {
+public class Configuration {
 
     private Map<String, Object> config;
 
-    public Config() {
+    public Configuration() {
         config = new HashMap<>();
     }
 
-    public Config(String key, Object object) {
+    public Configuration(String key, Object object) {
         config = new HashMap<>();
         config.put(key, object);
     }

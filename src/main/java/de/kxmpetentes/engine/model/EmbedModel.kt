@@ -12,10 +12,10 @@ import javax.annotation.Nullable
 
 data class EmbedModel(
     @Nonnull var title: String,
-    @Nonnull var author: String,
+    @Nullable var author: String,
     @Nullable var image: String,
-    @Nonnull var color: Color,
-    @Nullable var text: String,
+    @Nullable var color: Color,
+    @Nonnull var text: String,
     @Nullable var thumbnail: String,
     @Nullable var footer: String,
 ) {

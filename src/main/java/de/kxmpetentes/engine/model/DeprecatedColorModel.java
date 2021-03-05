@@ -2,6 +2,7 @@ package de.kxmpetentes.engine.model;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -15,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @Deprecated
 public class DeprecatedColorModel {
 
-    private final ArrayList<Color> colorList = new ArrayList<>();
+    private final List<Color> colorList = new ArrayList<>();
 
     /**
      * @param colors Enter the colors from which a random one should be chosen
@@ -36,13 +37,13 @@ public class DeprecatedColorModel {
     public Color getColor() {
         int randomInt = ThreadLocalRandom.current().nextInt(colorList.size());
 
-        return this.colorList.get(randomInt);
+        return colorList.get(randomInt);
     }
 
     /**
      * @return Gives you the list of colors to choose
      */
-    public ArrayList<Color> getColors() {
+    public List<Color> getColors() {
         return colorList;
     }
 

@@ -1,8 +1,8 @@
 package de.kxmpetentes.engine;
 
 import de.kxmpetentes.engine.command.CommandManager;
-import de.kxmpetentes.engine.json.Config;
 import de.kxmpetentes.engine.json.ConfigProvider;
+import de.kxmpetentes.engine.json.Configuration;
 import de.kxmpetentes.engine.manager.GuildCacheManager;
 import de.kxmpetentes.engine.manager.MongoAPI;
 import de.kxmpetentes.engine.manager.TopGGManager;
@@ -10,6 +10,8 @@ import de.kxmpetentes.engine.model.ConsoleColors;
 import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.api.JDA;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -32,10 +34,10 @@ public class DiscordCore {
     private String botIconURL;
     private CommandManager commandManager;
     private TopGGManager topGGManager;
-    private boolean mongoDB = false;
     private JDA jda;
     private GuildCacheManager guildCacheManager;
     private ConfigProvider configProvider = new ConfigProvider();
+    private Logger logger = LoggerFactory.getLogger("DiscordCore");
 
     public DiscordCore(String prefix) {
         instance = this;
@@ -64,48 +66,42 @@ public class DiscordCore {
     }
 
     public void enableMongoDB() {
+        Configuration configuration;
 
-        ConfigProvider configProvider = new ConfigProvider();
-        Config config;
-
-        File file = new File("config.json");
+        File file = new File("configuration.json");
 
         if (!file.exists()) {
-            config = new Config();
-            config.put("host", "localhost");
-            config.put("port", 27017);
-            config.put("user", "root");
-            config.put("password", "SECRET");
-            config.put("auth-database", "admin");
-            config.put("database", "bot");
+            configuration = new Configuration();
+            configuration.put("host", "localhost");
+            configuration.put("port", 27017);
+            configuration.put("user", "root");
+            configuration.put("password", "SECRET");
+            configuration.put("auth-database", "admin");
+            configuration.put("database", "bot");
 
-            System.out.println(ConsoleColors.GREEN + "Created MongoDB Config!");
+            System.out.println(ConsoleColors.GREEN + "Created MongoDB Configuration!");
 
-            this.mongoDB = false;
             return;
         }
 
 
         System.out.println(ConsoleColors.RED + "Versuche MongoDB zu verbinden!");
         try {
-            config = configProvider.getConfigFromFile(file);
+            configuration = configProvider.getConfigFromFile(file);
 
-            MongoAPI.connect((String) config.get("host"), (int) config.get("port"), (String) config.get("user"),
-                    (String) config.get("auth-database"), (String) config.get("database"), (String) config.get("password"));
-
-            this.mongoDB = true;
+            MongoAPI.connect((String) configuration.get("host"), (int) configuration.get("port"), (String) configuration.get("user"),
+                    (String) configuration.get("auth-database"), (String) configuration.get("database"), (String) configuration.get("password"));
 
         } catch (Exception e) {
             System.out.println(ConsoleColors.RED + "MongoDB Client konnte sich nicht verbinden!");
-            this.mongoDB = false;
         }
 
-        if (mongoDB) {
-            System.out.println(ConsoleColors.GREEN + "MongoDB verbunden!");
+        if (isMongoDBEnabled()) {
+            System.out.println(ConsoleColors.GREEN + "MongoDB ist verbunden");
         }
     }
 
     public boolean isMongoDBEnabled() {
-        return mongoDB;
+        return MongoAPI.isConnected();
     }
 }

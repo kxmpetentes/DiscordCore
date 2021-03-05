@@ -1,9 +1,8 @@
 package de.kxmpetentes.engine.model
 
 import java.awt.Color
-import kotlin.random.Random
 
-data class ColorModel(private val colors: Array<Color>) {
+data class ColorModel(private val colors: Collection<Color>) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -11,17 +10,17 @@ data class ColorModel(private val colors: Array<Color>) {
 
         other as ColorModel
 
-        if (!colors.contentEquals(other.colors)) return false
+        if (colors != other.colors) return false
 
         return true
     }
 
-    override fun hashCode(): Int {
-        return colors.contentHashCode()
+    fun getColor(): Color {
+        return colors.random()
     }
 
-    fun getColor(): Color {
-        return colors[Random.nextInt(colors.size)]
+    override fun hashCode(): Int {
+        return colors.hashCode()
     }
 
 }

@@ -21,23 +21,23 @@ import java.io.IOException;
 @AllArgsConstructor
 public class ConfigProvider {
 
-    private Config config;
+    private Configuration configuration;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public void safeConfig(@NotNull File file) throws ConfigurationException, IOException {
-        if (this.config == null) {
-            throw new ConfigurationException("Config can not be null!");
+        if (this.configuration == null) {
+            throw new ConfigurationException("Configuration can not be null!");
         }
 
-        objectMapper.writeValue(file, this.config);
+        objectMapper.writeValue(file, this.configuration);
     }
 
-    public void safeConfig(@NotNull File file, @NotNull Config config) throws IOException, ConfigurationException {
-        setConfig(config);
+    public void safeConfig(@NotNull File file, @NotNull Configuration configuration) throws IOException, ConfigurationException {
+        setConfiguration(configuration);
         safeConfig(file);
     }
 
-    public Config getConfigFromFile(File file) throws IOException {
-        return objectMapper.readValue(file, Config.class);
+    public Configuration getConfigFromFile(File file) throws IOException {
+        return objectMapper.readValue(file, Configuration.class);
     }
 }

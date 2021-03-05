@@ -2,6 +2,7 @@ package de.kxmpetentes.engine.utils.minecraft;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import de.kxmpetentes.engine.DiscordCore;
 import lombok.Getter;
 
 import java.io.BufferedReader;
@@ -54,7 +55,7 @@ public class UUIDFetcher {
 
             return uuidData.getId();
         } catch (Exception e) {
-            e.printStackTrace();
+            DiscordCore.getInstance().getLogger().error(e.getMessage(), e.getCause());
             return null;
         }
     }
@@ -66,8 +67,8 @@ public class UUIDFetcher {
             UUIDFetcher[] nameHistory = gson.fromJson(new BufferedReader(new InputStreamReader(connection.getInputStream())), UUIDFetcher[].class);
             return new NameHistory(uuid, nameHistory);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new NullPointerException();
+            DiscordCore.getInstance().getLogger().error(e.getMessage(), e.getCause());
+            return null;
         }
     }
 

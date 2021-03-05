@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * @author kxmpetentes
@@ -17,7 +18,7 @@ import java.util.Arrays;
 
 public class CommandManager {
 
-    private final ArrayList<CommandExecutor> commands;
+    private final Collection<CommandExecutor> commands;
 
     public CommandManager() {
         commands = new ArrayList<>();
@@ -26,7 +27,7 @@ public class CommandManager {
     /**
      * @param commands arraylist of commands
      */
-    public CommandManager(ArrayList<CommandExecutor> commands) {
+    public CommandManager(Collection<CommandExecutor> commands) {
         this.commands = commands;
     }
 
@@ -54,7 +55,6 @@ public class CommandManager {
                 cmd.onCommand(member, channel, args, message);
 
                 return true;
-
             }
         }
 
@@ -64,7 +64,7 @@ public class CommandManager {
     /**
      * @return all commands
      */
-    public ArrayList<CommandExecutor> getCommands() {
+    public Collection<CommandExecutor> getCommands() {
         return commands;
     }
 
