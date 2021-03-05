@@ -74,15 +74,12 @@ public class CommandListener extends ListenerAdapter {
                         System.out.println(ConsoleColors.RED + guild.getName() + ": " + member.getUser().getName() + ConsoleColors.WHITE + ": " + event.getMessage().getContentDisplay() + ConsoleColors.RESET);
                     }
                 } catch (Exception e) {
-                    new EmbedModel("**Fehler!**",
-                            null,
-                            null,
-                            Color.red,
-                            "Exception: " + e.getClass().getName() + "\n",
-                            null,
-                            guild.getName()).createMessage().sendToTextChannel(channel);
+                    EmbedModel embedModel = new EmbedModel("**Error**", "", "", Color.RED, e.getClass().getSimpleName(),
+                            "", "Contact the support!");
 
-                    e.printStackTrace();
+                    embedModel.createMessage().sendToTextChannel(channel);
+
+                    DiscordCore.getInstance().getLogger().error(e.getClass().getSimpleName(), e);
                 }
             }
         }

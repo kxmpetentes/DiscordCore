@@ -4,18 +4,17 @@ import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.PrivateChannel
 import net.dv8tion.jda.api.entities.TextChannel
+import org.jetbrains.annotations.Nullable
 import java.awt.Color
 import java.time.Duration
 import java.time.OffsetDateTime
-import javax.annotation.Nonnull
-import javax.annotation.Nullable
 
 data class EmbedModel(
-    @Nonnull var title: String,
+    @Nullable var title: String,
     @Nullable var author: String,
     @Nullable var image: String,
     @Nullable var color: Color,
-    @Nonnull var text: String,
+    @Nullable var text: String,
     @Nullable var thumbnail: String,
     @Nullable var footer: String,
 ) {
