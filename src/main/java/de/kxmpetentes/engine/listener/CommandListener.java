@@ -76,7 +76,6 @@ public class CommandListener extends ListenerAdapter {
                 } catch (Exception e) {
                     EmbedModel embedModel = new EmbedModel("**Error**", "", "", Color.RED, e.getClass().getSimpleName(),
                             "", "Contact the support!");
-
                     embedModel.createMessage().sendToTextChannel(channel);
 
                     DiscordCore.getInstance().getLogger().error(e.getClass().getSimpleName(), e);

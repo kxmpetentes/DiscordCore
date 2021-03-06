@@ -31,9 +31,7 @@ public class TopGGManager {
     public boolean hasVoted(String userID) {
         AtomicBoolean vote = new AtomicBoolean(false);
 
-        getBotListAPI().hasVoted(userID).whenComplete((hasVoted, throwable) -> {
-            vote.set(hasVoted);
-        });
+        getBotListAPI().hasVoted(userID).whenComplete(((voted, e) -> vote.set(voted)));
 
         return vote.get();
     }
@@ -41,9 +39,7 @@ public class TopGGManager {
     public boolean isVotingMultiplier() {
         AtomicBoolean votingMultiplier = new AtomicBoolean(false);
 
-        getBotListAPI().getVotingMultiplier().whenComplete((multiplier, e) -> {
-            votingMultiplier.set(multiplier.isWeekend());
-        });
+        getBotListAPI().getVotingMultiplier().whenComplete((multiplier, e) -> votingMultiplier.set(multiplier.isWeekend()));
 
         return votingMultiplier.get();
     }

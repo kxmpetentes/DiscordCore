@@ -12,7 +12,7 @@ class NameHistoryUtil {
             if (cacheHistory.containsKey(name)) {
                 return cacheHistory[name]
             }
-            val history: NameHistory? = NameHistoryUtil.requestHistory(name)
+            val history: NameHistory? = requestHistory(name)
             cacheHistory[name] = history
             return history
         }
