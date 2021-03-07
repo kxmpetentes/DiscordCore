@@ -1,12 +1,16 @@
 package de.kxmpetentes.engine.command;
 
-import net.dv8tion.jda.api.entities.Member;
+import de.kxmpetentes.engine.DiscordCore;
+import de.kxmpetentes.engine.manager.GuildCacheManager;
+import de.kxmpetentes.engine.model.GuildModel;
+import lombok.Data;
+import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author kxmpetentes
@@ -16,56 +20,77 @@ import java.util.Collection;
  * Erstellt am: 04.01.2021 um 21:47
  */
 
+@Data
 public class CommandManager {
 
-    private final Collection<CommandExecutor> commands;
+    private GuildCacheManager serverCache;
+    private List<Command> commandList;
+    private String prefix = "+";
 
-    public CommandManager() {
-        commands = new ArrayList<>();
-    }
+    public boolean performCommand(MessageReceivedEvent event) {
 
-    /**
-     * @param commands arraylist of commands
-     */
-    public CommandManager(Collection<CommandExecutor> commands) {
-        this.commands = commands;
-    }
+        if (serverCache == null) {
+            serverCache = DiscordCore.getInstance().getGuildCacheManager();
+            return false;
+        }
 
-    /**
-     * @param commandExecuter add new command to the commandlist
-     */
-    public void addCommand(CommandExecutor commandExecuter) {
-        commands.add(commandExecuter);
-    }
+        ChannelType channelType = event.getChannelType();
+        Message message = event.getMessage();
 
-    /**
-     * @param commandExecuters add an array of commands to the commandlist
-     */
-    public void addCommands(CommandExecutor... commandExecuters) {
-        commands.addAll(Arrays.asList(commandExecuters));
-    }
+        String contentRaw = message.getContentRaw();
+        if (channelType == ChannelType.PRIVATE) {
 
-    public boolean performedCommand(String command, Member member, TextChannel channel, Message message) {
-        String[] args = message.getContentRaw().split(" ");
-        if (member.getUser().isBot()) return false;
-
-        for (CommandExecutor cmd : this.commands) {
-            if (cmd.getCommand().equalsIgnoreCase(command)) {
-
-                cmd.onCommand(member, channel, args, message);
-
-                return true;
+            Command command = iterateCommands(message, "+", true);
+            if (command == null) {
+                return false;
             }
+
+            command.execute(event, contentRaw.split(" "));
+            return true;
+        }
+
+        if (channelType == ChannelType.TEXT) {
+            Guild guild = event.getGuild();
+
+            GuildModel server = serverCache.getGuildModel(guild);
+            if (server.getPrefix() != null) {
+                prefix = server.getPrefix();
+            }
+
+            Command command = iterateCommands(message, prefix, false);
+            if (command == null) {
+                return false;
+            }
+
+            command.execute(event, contentRaw.split(" "));
+            return true;
         }
 
         return false;
     }
 
-    /**
-     * @return all commands
-     */
-    public Collection<CommandExecutor> getCommands() {
-        return commands;
+    private Command iterateCommands(Message message, String prefix, boolean isPrivate) {
+        String[] split = message.getContentRaw().split(" ");
+        String commandString = split[0].replace(prefix, "");
+
+        for (Command command : commandList) {
+            for (String alias : command.getAliases()) {
+                if (alias.equalsIgnoreCase(commandString) || command.getCommandName().equalsIgnoreCase(commandString)) {
+                    if (isPrivate && !command.isGuildCommand() || !isPrivate && command.isGuildCommand() || !isPrivate) {
+                        return command;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
+    public void addCommand(Command command) {
+        if (commandList == null) {
+            setCommandList(new ArrayList<>());
+        }
+
+        commandList.add(command);
+    }
 }

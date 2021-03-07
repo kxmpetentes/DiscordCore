@@ -1,7 +1,7 @@
 package de.kxmpetentes.engine.build
 
 import de.kxmpetentes.engine.DiscordCore
-import de.kxmpetentes.engine.command.CommandExecutor
+import de.kxmpetentes.engine.command.Command
 import de.kxmpetentes.engine.manager.BotCreateManager
 import net.dv8tion.jda.api.OnlineStatus
 import net.dv8tion.jda.api.entities.Activity
@@ -16,9 +16,9 @@ class DefaultBotBuilder {
     private val token: String
     private val onlineStatus: OnlineStatus
     private val activity: Activity
-    private val gatewayInents: ArrayList<GatewayIntent>
-    private val eventListeners: ArrayList<EventListener>
-    private val commandExecutors: ArrayList<CommandExecutor>
+    private val gatewayInents: Collection<GatewayIntent>
+    private val eventListeners: Collection<EventListener>
+    private val commandExecutors: Collection<Command>
 
     constructor(
         discordCore: DiscordCore,
@@ -42,9 +42,9 @@ class DefaultBotBuilder {
         token: String,
         onlineStatus: OnlineStatus,
         activity: Activity,
-        gatewayInents: ArrayList<GatewayIntent>,
-        eventListeners: ArrayList<EventListener>,
-        commandExecutors: ArrayList<CommandExecutor>,
+        gatewayInents: Collection<GatewayIntent>,
+        eventListeners: Collection<EventListener>,
+        commandExecutors: Collection<Command>,
     ) {
         this.discordCore = discordCore
         this.token = token
@@ -70,26 +70,30 @@ class DefaultBotBuilder {
     @Throws(LoginException::class)
     fun getDefaultShardManager(): ShardManager {
         if (gatewayInents.isNotEmpty() && eventListeners.isNotEmpty() && commandExecutors.isNotEmpty()) {
-            return BotCreateManager(discordCore,
+            return BotCreateManager(
+                discordCore,
                 token,
                 onlineStatus,
                 activity,
                 gatewayInents,
                 eventListeners,
-                commandExecutors).defaultShardManager
+                commandExecutors
+            ).defaultShardManager
         }
         return BotCreateManager(token, activity, onlineStatus).defaultShardManager
     }
 
     fun getCommandShardManager(): ShardManager {
         if (gatewayInents.isNotEmpty() && eventListeners.isNotEmpty() && commandExecutors.isNotEmpty()) {
-            return BotCreateManager(discordCore,
+            return BotCreateManager(
+                discordCore,
                 token,
                 onlineStatus,
                 activity,
                 gatewayInents,
                 eventListeners,
-                commandExecutors).commandShardManager
+                commandExecutors
+            ).commandShardManager
         }
         return BotCreateManager(token, activity, onlineStatus).commandShardManager
     }

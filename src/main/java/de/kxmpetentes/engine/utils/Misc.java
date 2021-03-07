@@ -45,7 +45,6 @@ public class Misc {
     public static String getGuildEmoteId(String emote) {
         Matcher matcher = patternGuildEmote.matcher(emote);
         if (matcher.find()) {
-            System.out.println(matcher.group(1));
             return matcher.group(1);
         }
         if (emote.matches("^\\d+$")) {

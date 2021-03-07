@@ -1,5 +1,6 @@
 package de.kxmpetentes.engine.utils;
 
+import de.kxmpetentes.engine.DiscordCore;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.BufferedReader;
@@ -86,8 +87,7 @@ public class YtUtil {
             int end = input.indexOf("</title>");
             ret = input.substring(start + 7, end - 10);
         } catch (Exception e) {
-            System.out.println(e);
-            e.printStackTrace();
+            DiscordCore.getInstance().getLogger().error(e.getMessage(), e);
         }
         return StringEscapeUtils.unescapeHtml4(ret);
     }

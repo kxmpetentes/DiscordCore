@@ -1,7 +1,7 @@
 package de.kxmpetentes.engine.build
 
 import de.kxmpetentes.engine.DiscordCore
-import de.kxmpetentes.engine.command.CommandExecutor
+import de.kxmpetentes.engine.command.Command
 import de.kxmpetentes.engine.manager.BotCreateManager
 import net.dv8tion.jda.api.OnlineStatus
 import net.dv8tion.jda.api.entities.Activity
@@ -16,9 +16,9 @@ class MongoDBBotBuilder {
     private val token: String
     private val onlineStatus: OnlineStatus
     private val activity: Activity
-    private val gatewayInents: ArrayList<GatewayIntent>
-    private val eventListeners: ArrayList<EventListener>
-    private val commandExecutors: ArrayList<CommandExecutor>
+    private val gatewayInents: Collection<GatewayIntent>
+    private val eventListeners: Collection<EventListener>
+    private val commandExecutors: Collection<Command>
 
     constructor(
         discordCore: DiscordCore,
@@ -43,9 +43,9 @@ class MongoDBBotBuilder {
         token: String,
         onlineStatus: OnlineStatus,
         activity: Activity,
-        gatewayInents: ArrayList<GatewayIntent>,
-        eventListeners: ArrayList<EventListener>,
-        commandExecutors: ArrayList<CommandExecutor>,
+        gatewayInents: Collection<GatewayIntent>,
+        eventListeners: Collection<EventListener>,
+        commandExecutors: Collection<Command>,
     ) {
         this.discordCore = discordCore
         this.token = token

@@ -79,13 +79,13 @@ public class DiscordCore {
             configuration.put("auth-database", "admin");
             configuration.put("database", "bot");
 
-            System.out.println(ConsoleColors.GREEN + "Created MongoDB Configuration!");
+            logger.info(ConsoleColors.GREEN + "Created MongoDB Configuration!");
 
             return;
         }
 
 
-        System.out.println(ConsoleColors.RED + "Versuche MongoDB zu verbinden!");
+        logger.info(ConsoleColors.RED + "Versuche MongoDB zu verbinden!");
         try {
             configuration = configProvider.getConfigFromFile(file);
 
@@ -93,11 +93,11 @@ public class DiscordCore {
                     (String) configuration.get("auth-database"), (String) configuration.get("database"), (String) configuration.get("password"));
 
         } catch (Exception e) {
-            System.out.println(ConsoleColors.RED + "MongoDB Client konnte sich nicht verbinden!");
+            logger.error(e.getMessage(), e);
         }
 
         if (isMongoDBEnabled()) {
-            System.out.println(ConsoleColors.GREEN + "MongoDB ist verbunden");
+            logger.info("MongoDB Verbunden");
         }
     }
 
