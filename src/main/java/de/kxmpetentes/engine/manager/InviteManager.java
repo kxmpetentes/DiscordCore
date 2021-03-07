@@ -36,26 +36,29 @@ public class InviteManager {
 
     public String getInvite() {
 
-        if (guild.getVanityUrl() != null) {
+        if (hasVanityInvite()) {
             return guild.getVanityUrl();
         }
 
         AtomicReference<String> inviteUrl = new AtomicReference<>("");
 
         channel.retrieveInvites().queue(invites -> {
-
             for (Invite invite : invites) {
-                if (invite.getMaxAge() == 0 && invite.getMaxUses() == 0 && !invite.isTemporary()) {
+                if (isPermanentInvite(invite)) {
                     inviteUrl.set(invite.getUrl());
                 }
             }
         });
 
-        if (inviteUrl.get().equals("")) {
+        if (inviteUrl.get().isEmpty()) {
             return createInvite();
         }
 
         return inviteUrl.get();
+    }
+
+    public boolean isPermanentInvite(Invite invite) {
+        return invite.getMaxAge() == 0 && invite.getMaxUses() == 0 && !invite.isTemporary();
     }
 
     private String createInvite() {
