@@ -69,10 +69,14 @@ public class BotCreateManager {
         defaultShardManagerBuilder.enableIntents(GatewayIntent.GUILD_MESSAGES);
         defaultShardManagerBuilder.disableCache(CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
         defaultShardManagerBuilder.setMemberCachePolicy(MemberCachePolicy.ONLINE);
+
         defaultShardManagerBuilder.addEventListeners(new CommandListener(discordCore));
-        defaultShardManagerBuilder.addEventListeners(new JoinGuildListener(discordCore));
-        defaultShardManagerBuilder.addEventListeners(new QuitGuildListener(discordCore));
-        defaultShardManagerBuilder.addEventListeners(new ShutdownListener(discordCore));
+
+        if (discordCore.isMongoDBEnabled()) {
+            defaultShardManagerBuilder.addEventListeners(new JoinGuildListener(discordCore));
+            defaultShardManagerBuilder.addEventListeners(new QuitGuildListener(discordCore));
+            defaultShardManagerBuilder.addEventListeners(new ShutdownListener(discordCore));
+        }
 
         CommandManager commandManager = discordCore.getCommandManager();
         for (Command commandExecuter : commandExecuters) {

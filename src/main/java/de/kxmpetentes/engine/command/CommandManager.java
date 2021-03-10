@@ -25,22 +25,19 @@ public class CommandManager {
 
     private GuildCacheManager serverCache;
     private List<Command> commandList;
-    private String prefix = "+";
+    private String prefix;
 
     public boolean performCommand(MessageReceivedEvent event) {
-
-        if (serverCache == null) {
-            serverCache = DiscordCore.getInstance().getGuildCacheManager();
-            return false;
-        }
 
         ChannelType channelType = event.getChannelType();
         Message message = event.getMessage();
 
+        prefix = DiscordCore.getInstance().getPrefix();
+
         String contentRaw = message.getContentRaw();
         if (channelType == ChannelType.PRIVATE) {
 
-            Command command = iterateCommands(message, "+", true);
+            Command command = iterateCommands(message, prefix, true);
             if (command == null) {
                 return false;
             }
@@ -52,8 +49,13 @@ public class CommandManager {
         if (channelType == ChannelType.TEXT) {
             Guild guild = event.getGuild();
 
-            GuildModel server = serverCache.getGuildModel(guild);
-            if (server.getPrefix() != null) {
+            if (DiscordCore.getInstance().isMongoDBEnabled()) {
+                if (serverCache == null) {
+                    serverCache = DiscordCore.getInstance().getGuildCacheManager();
+                    return false;
+                }
+
+                GuildModel server = serverCache.getGuildModel(guild);
                 prefix = server.getPrefix();
             }
 
