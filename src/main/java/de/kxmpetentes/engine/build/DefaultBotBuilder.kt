@@ -69,7 +69,7 @@ class DefaultBotBuilder {
 
     @Throws(LoginException::class)
     fun getDefaultShardManager(): ShardManager {
-        if (gatewayInents.isNotEmpty() && eventListeners.isNotEmpty() && commandExecutors.isNotEmpty()) {
+        if (gatewayInents.isNotEmpty() || eventListeners.isNotEmpty() || commandExecutors.isNotEmpty()) {
             return BotCreateManager(
                 discordCore,
                 token,
@@ -84,7 +84,7 @@ class DefaultBotBuilder {
     }
 
     fun getCommandShardManager(): ShardManager {
-        if (gatewayInents.isNotEmpty() && eventListeners.isNotEmpty() && commandExecutors.isNotEmpty()) {
+        if (gatewayInents.isNotEmpty() || eventListeners.isNotEmpty() || commandExecutors.isNotEmpty()) {
             return BotCreateManager(
                 discordCore,
                 token,
