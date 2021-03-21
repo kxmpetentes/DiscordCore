@@ -273,7 +273,7 @@ public class DiscordUtil {
     public static BufferedImage getUserAvatar(User user) throws IOException {
 
         URLConnection connection = new URL(user.getAvatarUrl() != null ? user.getAvatarUrl() : user.getDefaultAvatarUrl()).openConnection();
-        connection.setRequestProperty("User-Agent", "bot emily-bot");
+        connection.setRequestProperty("User-Agent", "DiscordCore");
         BufferedImage profileImg;
         try {
             profileImg = ImageIO.read(connection.getInputStream());

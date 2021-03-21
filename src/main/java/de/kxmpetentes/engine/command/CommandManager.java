@@ -76,6 +76,15 @@ public class CommandManager {
         String commandString = split[0].replace(prefix, "");
 
         for (Command command : commandList) {
+
+            if (command.getAliases().length == 0) {
+                if (command.getCommandName().equalsIgnoreCase(commandString)) {
+                    if (isPrivate && !command.isGuildCommand() || !isPrivate && command.isGuildCommand() || !isPrivate) {
+                        return command;
+                    }
+                }
+            }
+
             for (String alias : command.getAliases()) {
                 if (alias.equalsIgnoreCase(commandString) || command.getCommandName().equalsIgnoreCase(commandString)) {
                     if (isPrivate && !command.isGuildCommand() || !isPrivate && command.isGuildCommand() || !isPrivate) {
