@@ -25,14 +25,13 @@ public class CommandManager {
 
     private GuildCacheManager serverCache;
     private List<Command> commandList;
-    private String prefix;
 
     public boolean performCommand(MessageReceivedEvent event) {
 
         ChannelType channelType = event.getChannelType();
         Message message = event.getMessage();
 
-        prefix = DiscordCore.getInstance().getPrefix();
+        String prefix = DiscordCore.getInstance().getPrefix();
 
         String contentRaw = message.getContentRaw();
         if (channelType == ChannelType.PRIVATE) {
@@ -77,19 +76,31 @@ public class CommandManager {
 
         for (Command command : commandList) {
 
-            if (command.getAliases().length == 0) {
-                if (command.getCommandName().equalsIgnoreCase(commandString)) {
-                    if (isPrivate && !command.isGuildCommand() || !isPrivate && command.isGuildCommand() || !isPrivate) {
-                        return command;
-                    }
-                }
-            }
+            if (command.getAliases().length == 0)
+                return getCommandByName(command, commandString, isPrivate);
+            else
+                return getCommandByAliases(command, commandString, isPrivate);
 
-            for (String alias : command.getAliases()) {
-                if (alias.equalsIgnoreCase(commandString) || command.getCommandName().equalsIgnoreCase(commandString)) {
-                    if (isPrivate && !command.isGuildCommand() || !isPrivate && command.isGuildCommand() || !isPrivate) {
-                        return command;
-                    }
+        }
+
+        return null;
+    }
+
+    private Command getCommandByName(Command command, String commandName, boolean isPrivate) {
+        if (command.getCommandName().equalsIgnoreCase(commandName)) {
+            if (isPrivate && !command.isGuildCommand() || !isPrivate && command.isGuildCommand() || !isPrivate) {
+                return command;
+            }
+        }
+
+        return null;
+    }
+
+    private Command getCommandByAliases(Command command, String commandString, boolean isPrivate) {
+        for (String alias : command.getAliases()) {
+            if (alias.equalsIgnoreCase(commandString) || command.getCommandName().equalsIgnoreCase(commandString)) {
+                if (isPrivate && !command.isGuildCommand() || !isPrivate && command.isGuildCommand() || !isPrivate) {
+                    return command;
                 }
             }
         }
