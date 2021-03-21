@@ -14,19 +14,19 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class Pair<K, V> implements Serializable {
+public class Pair<K, T> implements Serializable {
 
     private K key;
-    private V value;
+    private T value;
 
-    public Pair(K key, V value) {
+    public Pair(K key, T value) {
         this.key = key;
         this.value = value;
     }
 
     @Override
     public String toString() {
-        return key + "=" + value;
+        return key + "=" + value.getClass().getSimpleName();
     }
 
 }
