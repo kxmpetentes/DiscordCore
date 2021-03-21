@@ -2,7 +2,7 @@
 
 ![Java CI with Maven](https://github.com/kxmpetentes/DiscordEngine/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kxmpetentes/DiscordCore/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kxmpetentes/DiscordCore/?branch=master)
-
+[![Discord Bots](https://top.gg/api/widget/status/765850867508445215.svg)](https://top.gg/bot/765850867508445215)
 
 Currently it's just a simple CommandHelper for the JDA. But there will be more features soon
 
