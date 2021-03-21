@@ -229,18 +229,6 @@ public class DiscordUtil {
     }
 
     /**
-     * Checks if a user has a guild within a guild
-     *
-     * @param user       the user to check
-     * @param guild      the guild to check in
-     * @param permission the permission to check for
-     * @return permission found
-     */
-    public static boolean hasPermission(User user, Guild guild, Permission permission) {
-        return PermissionUtil.checkPermission(guild.getMember(user), permission);
-    }
-
-    /**
      * attempts to find a role within a guild
      *
      * @param guild    the guild to search in

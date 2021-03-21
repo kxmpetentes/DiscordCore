@@ -29,8 +29,4 @@ public class Pair<K, V> implements Serializable {
         return key + "=" + value;
     }
 
-    @Override
-    public int hashCode() {
-        return key.hashCode() * 13 + (value == null ? 0 : value.hashCode());
-    }
 }
