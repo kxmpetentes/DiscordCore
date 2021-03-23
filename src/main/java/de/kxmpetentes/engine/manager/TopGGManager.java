@@ -14,6 +14,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TopGGManager {
 
+    // TODO: javadocs
+
     private final DiscordBotListAPI botListAPI;
 
     public TopGGManager(String token, String botID) {

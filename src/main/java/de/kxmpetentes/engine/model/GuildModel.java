@@ -28,6 +28,12 @@ public class GuildModel {
     private Role autoRole;
     private Document guildDocument;
 
+    /**
+     * Creates a guildModel object
+     *
+     * @param guild  guild for this guildobject
+     * @param prefix bot commandprefix or the guild commandprefix
+     */
     public GuildModel(Guild guild, String prefix) {
         this.guild = guild;
         this.guildId = guild.getId();
@@ -35,22 +41,33 @@ public class GuildModel {
         this.prefix = prefix;
     }
 
+    /**
+     * Creates a guildModel object
+     *
+     * @param guild       guild for this guildobject
+     * @param prefix      bot commandprefix or the guild commandprefix
+     * @param joinChannel the channel that sends a welcome message to the user that joined the guild
+     * @param quitChannel the channel that sends a quit message
+     */
     public GuildModel(Guild guild, String prefix, TextChannel joinChannel, TextChannel quitChannel) {
-        this.guild = guild;
-        this.guildId = guild.getId();
+        this(guild, prefix);
 
-        this.prefix = prefix;
         this.joinChannel = joinChannel;
         this.quitChannel = quitChannel;
     }
 
+    /**
+     * Creates a guildModel object
+     *
+     * @param guild       guild for this guildobject
+     * @param prefix      bot commandprefix or the guild commandprefix
+     * @param joinChannel the channel that sends a welcome message to the user that joined the guild
+     * @param quitChannel the channel that sends a quit message
+     * @param autoRole    the role that the bot adds to user they join
+     */
     public GuildModel(Guild guild, String prefix, TextChannel joinChannel, TextChannel quitChannel, Role autoRole) {
-        this.guild = guild;
-        this.guildId = guild.getId();
+        this(guild, prefix, joinChannel, quitChannel);
 
-        this.prefix = prefix;
-        this.joinChannel = joinChannel;
-        this.quitChannel = quitChannel;
         this.autoRole = autoRole;
     }
 

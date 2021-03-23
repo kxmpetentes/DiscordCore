@@ -5,11 +5,8 @@ import lombok.Getter;
 
 /**
  * @author kxmpetentes
- * Website: kxmpetentes.de
- * GitHub: git.kxmpetentes.de
- * Erstellt am: 07.03.2021 um 14:15
+ * @see de.kxmpetentes.engine.command.impl.ICommand;
  */
-
 public abstract class Command implements ICommand {
 
     @Getter
@@ -19,6 +16,13 @@ public abstract class Command implements ICommand {
     @Getter
     public final boolean guildCommand;
 
+    /**
+     * Creates a command
+     *
+     * @param commandName  string for the command syntax
+     * @param guildCommand make the command executable at privatechat
+     * @param aliases      aliases for the commandsyntax
+     */
     public Command(String commandName, boolean guildCommand, String... aliases) {
         this.commandName = commandName;
         this.guildCommand = guildCommand;

@@ -21,6 +21,8 @@ import java.util.Collections;
 
 public class MongoAPI {
 
+    // TODO: javadocs
+
     private MongoAPI() {
     }
 

@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public class UUIDTypeAdapter extends TypeAdapter<UUID> {
 
+    // TODO: 23.03.2021 javadocs
     @Override
     public void write(JsonWriter out, UUID value) throws IOException {
         out.value(fromUUID(value));

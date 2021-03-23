@@ -25,6 +25,8 @@ import java.util.TimerTask;
 @Getter
 public class GuildCacheManager {
 
+    // TODO: javadocs
+
     private final HashMap<Long, GuildModel> guildCache = new HashMap<>();
     private final DiscordCore discordCore;
 

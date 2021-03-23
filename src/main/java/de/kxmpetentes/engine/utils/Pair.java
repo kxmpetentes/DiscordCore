@@ -16,17 +16,26 @@ import java.io.Serializable;
 @Setter
 public class Pair<K, T> implements Serializable {
 
-    private K key;
-    private T value;
+    private K first;
+    private T second;
 
-    public Pair(K key, T value) {
-        this.key = key;
-        this.value = value;
+    public Pair() {
+    }
+
+    /**
+     * Creates a pair
+     *
+     * @param first  is the key of the pair
+     * @param second is the value of the pair
+     */
+    public Pair(K first, T second) {
+        this.first = first;
+        this.second = second;
     }
 
     @Override
     public String toString() {
-        return key + "=" + value.getClass().getSimpleName();
+        return first.getClass().getSimpleName() + "=" + second.getClass().getSimpleName();
     }
 
 }

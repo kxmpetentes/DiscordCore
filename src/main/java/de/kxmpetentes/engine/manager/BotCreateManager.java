@@ -31,6 +31,8 @@ import java.util.Collection;
 @Getter
 public class BotCreateManager {
 
+    // TODO: javadocs
+
     private final String token;
     private final Activity activity;
     private final OnlineStatus onlineStatus;

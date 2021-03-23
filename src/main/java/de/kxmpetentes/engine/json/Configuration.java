@@ -12,6 +12,8 @@ import java.util.Map;
 
 public class Configuration {
 
+    // TODO: 23.03.2021 javadocs
+
     private Map<String, Object> config;
 
     public Configuration() {

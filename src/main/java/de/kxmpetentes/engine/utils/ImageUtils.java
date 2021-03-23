@@ -11,6 +11,7 @@ import java.awt.*;
 
 public class ImageUtils {
 
+    //TODO Javadocs
     private ImageUtils() {
     }
 

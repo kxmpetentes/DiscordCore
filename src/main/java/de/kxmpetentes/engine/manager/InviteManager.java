@@ -17,6 +17,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class InviteManager {
 
+    // TODO: javadocs
+
     private final Guild guild;
     private final TextChannel channel;
 

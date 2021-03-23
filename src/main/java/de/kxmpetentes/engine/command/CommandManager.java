@@ -23,6 +23,8 @@ import java.util.List;
 @Data
 public class CommandManager {
 
+    // TODO: javadocs
+
     private GuildCacheManager serverCache;
     private List<Command> commandList;
 

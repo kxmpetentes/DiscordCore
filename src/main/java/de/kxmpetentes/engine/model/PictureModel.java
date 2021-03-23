@@ -16,6 +16,8 @@ import java.io.IOException;
 
 public class PictureModel {
 
+    // TODO: javadocs
+
     private final int widht, height;
     private final String pictureName;
     private final BufferedImage bufferedImage;

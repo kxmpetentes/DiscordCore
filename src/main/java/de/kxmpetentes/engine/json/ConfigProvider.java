@@ -21,6 +21,8 @@ import java.io.IOException;
 @AllArgsConstructor
 public class ConfigProvider {
 
+    // TODO: 23.03.2021 javadocs
+
     private Configuration configuration;
     private final ObjectMapper objectMapper = new ObjectMapper();
 

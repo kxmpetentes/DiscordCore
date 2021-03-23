@@ -19,6 +19,8 @@ import java.util.Scanner;
 
 public class JsonWebsite {
 
+    // TODO: 23.03.2021 javadocs
+
     private final String url;
 
     public JsonWebsite(String url) {
