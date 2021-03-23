@@ -23,11 +23,14 @@ import java.util.List;
 @Data
 public class CommandManager {
 
-    // TODO: javadocs
-
     private GuildCacheManager serverCache;
     private List<Command> commandList;
 
+    /**
+     * @param event extends MessageReceivedEvent
+     * @return command executed correctly
+     * @see net.dv8tion.jda.api.events.message.MessageReceivedEvent
+     */
     public boolean performCommand(MessageReceivedEvent event) {
 
         ChannelType channelType = event.getChannelType();
@@ -72,7 +75,15 @@ public class CommandManager {
         return false;
     }
 
-    private Command iterateCommands(Message message, String prefix, boolean isPrivate) {
+    /**
+     * Iterates all commands that in the command list
+     *
+     * @param message   message from the command
+     * @param prefix
+     * @param isPrivate
+     * @return the command from string, prefix & isPrivate
+     */
+    public Command iterateCommands(Message message, String prefix, boolean isPrivate) {
         String[] split = message.getContentRaw().split(" ");
         String commandString = split[0].replace(prefix, "");
 
@@ -110,6 +121,12 @@ public class CommandManager {
         return null;
     }
 
+    /**
+     * Adds a command to the commandlist
+     *
+     * @param command command extends de.kxmpetentes.engine.command.impl.ICommand
+     * @see de.kxmpetentes.engine.command.Command
+     */
     public void addCommand(Command command) {
         if (commandList == null) {
             setCommandList(new ArrayList<>());
