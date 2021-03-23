@@ -7,6 +7,7 @@ import de.kxmpetentes.engine.manager.GuildCacheManager;
 import de.kxmpetentes.engine.manager.MongoAPI;
 import de.kxmpetentes.engine.manager.TopGGManager;
 import de.kxmpetentes.engine.model.ConsoleColors;
+import de.kxmpetentes.engine.utils.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.api.JDA;
@@ -71,13 +72,21 @@ public class DiscordCore {
         File file = new File("configuration.json");
 
         if (!file.exists()) {
-            configuration = new Configuration();
-            configuration.put("host", "localhost");
-            configuration.put("port", 27017);
-            configuration.put("user", "root");
-            configuration.put("password", "SECRET");
-            configuration.put("auth-database", "admin");
-            configuration.put("database", "bot");
+            Pair<String, Object> hostPair = new Pair<>("host", "localhost");
+            Pair<String, Object> portPair = new Pair<>("port", 27017);
+            Pair<String, Object> userPair = new Pair<>("user", "root");
+            Pair<String, Object> passwordPair = new Pair<>("password", "SECRET");
+            Pair<String, Object> authDatabasePair = new Pair<>("auth-database", "admin");
+            Pair<String, Object> databasePair = new Pair<>("database", "bot");
+
+            configuration = new Configuration(
+                    hostPair,
+                    portPair,
+                    userPair,
+                    passwordPair,
+                    authDatabasePair,
+                    databasePair
+            );
 
             logger.info(ConsoleColors.GREEN + "Created MongoDB Configuration!");
 
