@@ -31,8 +31,6 @@ import java.util.Collection;
 @Getter
 public class BotCreateManager {
 
-    // TODO: javadocs
-
     private final String token;
     private final Activity activity;
     private final OnlineStatus onlineStatus;
@@ -42,6 +40,13 @@ public class BotCreateManager {
     private Collection<Command> commandExecuters;
     private Collection<EventListener> listener;
 
+    /**
+     * Creates a new Discord bot
+     *
+     * @param token        bot token
+     * @param activity     activity for the bot
+     * @param onlineStatus online status for the bot
+     */
     public BotCreateManager(String token, Activity activity, OnlineStatus onlineStatus) {
         this.token = token;
         this.activity = activity;
@@ -49,6 +54,17 @@ public class BotCreateManager {
         this.defaultShardManagerBuilder = DefaultShardManagerBuilder.createDefault(token).setStatus(onlineStatus);
     }
 
+    /**
+     * Creates a new Discord bot
+     *
+     * @param discordCore      the discordCore instance
+     * @param token            bot token
+     * @param onlineStatus     activity for the bot
+     * @param activity         online status for the bot
+     * @param gatewayIntents   gatewayIntents for the discord restapi
+     * @param listener         listener extends EventListener
+     * @param commandExecuters commandExecutor extends Command
+     */
     public BotCreateManager(DiscordCore discordCore, String token, OnlineStatus onlineStatus, Activity activity,
                             Collection<GatewayIntent> gatewayIntents, Collection<EventListener> listener,
                             Collection<Command> commandExecuters) {
@@ -61,12 +77,24 @@ public class BotCreateManager {
         this.defaultShardManagerBuilder = DefaultShardManagerBuilder.create(token, gatewayIntents).setStatus(onlineStatus);
     }
 
+    /**
+     * Creates a default shardmanager
+     *
+     * @return default shardmanager
+     * @throws LoginException if the token is invalid
+     */
     public ShardManager getDefaultShardManager() throws LoginException {
         defaultShardManagerBuilder.setActivity(activity);
 
         return defaultShardManagerBuilder.build();
     }
 
+    /**
+     * Gets the command shardmanager
+     *
+     * @return ShardManager for Commands
+     * @throws LoginException if the token is invalid
+     */
     public ShardManager getCommandShardManager() throws LoginException {
         defaultShardManagerBuilder.enableIntents(GatewayIntent.GUILD_MESSAGES);
         defaultShardManagerBuilder.disableCache(CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
