@@ -9,12 +9,15 @@ package de.kxmpetentes.engine.json;
 
 public class ConfigurationException extends Exception {
 
-    // TODO: 23.03.2021 javadocs
-
     public ConfigurationException() {
         super("Failed to convert config!");
     }
 
+    /**
+     * Throws an exception
+     *
+     * @param message message of the error
+     */
     public ConfigurationException(String message) {
         super(message);
     }

@@ -19,14 +19,23 @@ import java.util.Scanner;
 
 public class JsonWebsite {
 
-    // TODO: 23.03.2021 javadocs
-
     private final String url;
 
+    /**
+     * Gets an JsonWebsite object form specified url
+     *
+     * @param url url to load
+     */
     public JsonWebsite(String url) {
         this.url = url;
     }
 
+    /**
+     * Gets the JsonObject
+     *
+     * @return the JsonObject
+     * @throws IOException if the file cannot be opened
+     */
     public JSONObject getJsonObject() throws IOException {
 
         try {
@@ -43,6 +52,12 @@ public class JsonWebsite {
 
     }
 
+    /**
+     * Reads an Array
+     *
+     * @return Collection of Strings
+     * @throws IOException if the url cannot be opened
+     */
     public Collection<String> getArray() throws IOException {
         ArrayList<String> values = new ArrayList<>();
 
@@ -72,12 +87,4 @@ public class JsonWebsite {
         return stringBuilder.toString();
     }
 
-    @Override
-    public String toString() {
-        try {
-            return getJsonObject().toString();
-        } catch (IOException e) {
-            return "";
-        }
-    }
 }
