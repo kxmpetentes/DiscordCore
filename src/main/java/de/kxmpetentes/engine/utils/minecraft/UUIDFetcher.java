@@ -23,8 +23,6 @@ import java.util.UUID;
 @Getter
 public class UUIDFetcher {
 
-    // TODO: 23.03.2021 java docs
-
     private static final Gson gson = new GsonBuilder().registerTypeAdapter(UUID.class, new UUIDTypeAdapter()).create();
     private static final String uuidUrl = "https://api.mojang.com/users/profiles/minecraft/%s?at=%d";
     private static final String nameUrl = "https://api.mojang.com/user/profiles/%s/names";
