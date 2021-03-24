@@ -25,13 +25,17 @@ import java.util.TimerTask;
 @Getter
 public class GuildCacheManager {
 
-    // TODO: javadocs
-
     private final HashMap<Long, GuildModel> guildCache = new HashMap<>();
     private final DiscordCore discordCore;
 
     private Timer timer;
 
+    /**
+     * GuildCacheManager constructor specific to manages guilds in MongoDB
+     *
+     * @param discordCore discordCore instance
+     * @param jda         jda
+     */
     public GuildCacheManager(DiscordCore discordCore, JDA jda) {
         this.discordCore = discordCore;
 
@@ -39,6 +43,11 @@ public class GuildCacheManager {
         timer = getBackupTimer();
     }
 
+    /**
+     * Loads the guilds from database
+     *
+     * @param jda jda instance
+     */
     private void initCache(JDA jda) {
         for (Guild guild : jda.getGuilds()) {
             for (Document document : MongoAPI.getCollection("DiscordEngine").find(Filters.eq("settings", guild.getId()))) {
@@ -62,6 +71,12 @@ public class GuildCacheManager {
         }
     }
 
+    /**
+     * Get a prefix from the specified guilddocument
+     *
+     * @param document document of the guild
+     * @return returns the prefix of a Document
+     */
     private String getPrefixFromDocument(Document document) {
         if (document.containsKey("prefix"))
             return document.getString("prefix");
@@ -69,6 +84,14 @@ public class GuildCacheManager {
             return DiscordCore.getInstance().getPrefix();
     }
 
+    /**
+     * Gets a textchannel from the specified guilddocument
+     *
+     * @param guild    guild to get the textchannel
+     * @param document document of the guild
+     * @param key      key of the database insertion
+     * @return returns the textchannel
+     */
     private TextChannel getChannelFromDocument(Guild guild, Document document, String key) {
         if (document.containsKey(key)) {
             try {
@@ -81,6 +104,14 @@ public class GuildCacheManager {
         return guild.getTextChannelById(Long.MIN_VALUE);
     }
 
+    /**
+     * Gets a role from the specified guilddocument
+     *
+     * @param guild    guild to get the role
+     * @param document document of the guild
+     * @param key      key of the database insertion
+     * @return returns the role
+     */
     private Role getRoleFromDocument(Guild guild, Document document, String key) {
         if (document.containsKey(key)) {
             try {
@@ -93,10 +124,22 @@ public class GuildCacheManager {
         return guild.getRoleById(Long.MIN_VALUE);
     }
 
+    /**
+     * Gets a <b>GuildModel</b> for the specified guild.
+     *
+     * @param guild Guild to get the guild model
+     * @return returns a GuildModel for the Guild of the specified guild
+     */
     public GuildModel getGuildModel(Guild guild) {
         return getGuildModel(guild.getIdLong());
     }
 
+    /**
+     * Gets a <b>GuildModel</b> for the specified guildId.
+     *
+     * @param guildId guildId to get the guild model
+     * @return returns a GuildModel for the Guild of the specified guild
+     */
     public GuildModel getGuildModel(long guildId) {
 
         if (guildCache.containsKey(guildId)) {
@@ -110,6 +153,11 @@ public class GuildCacheManager {
         return null;
     }
 
+    /**
+     * Saves the guildcache
+     *
+     * @param guild guild to save
+     */
     public void addGuildToCache(Guild guild) {
         GuildModel guildModel = new GuildModel(guild, discordCore.getPrefix());
         guildCache.put(guild.getIdLong(), guildModel);
@@ -117,6 +165,11 @@ public class GuildCacheManager {
         addNewGuild(guildModel);
     }
 
+    /**
+     * Removes a GuildModel from the guildcache
+     *
+     * @param guild guild to remove
+     */
     public void removeGuildFromCache(Guild guild) {
         GuildModel guildModel = guildCache.get(guild.getIdLong());
 
@@ -124,6 +177,11 @@ public class GuildCacheManager {
         guildCache.remove(guild.getIdLong());
     }
 
+    /**
+     * Add a new GuildModel to the guildcache & database
+     *
+     * @param guildModel GuildModel to save
+     */
     public void addNewGuild(GuildModel guildModel) {
 
         Document document = MongoAPI.getCollection("DiscordCore").find(Filters.eq("settings", guildModel.getGuildId())).first();
@@ -136,6 +194,11 @@ public class GuildCacheManager {
         MongoAPI.getCollection("DiscordEngine").insertOne(updateGuildChannels(guildModel, document));
     }
 
+    /**
+     * Update the specified guild in the database
+     *
+     * @param guildModel GuildModel to update
+     */
     public void updateGuild(GuildModel guildModel) {
 
         MongoAPI.getCollection("DiscordEngine").findOneAndDelete(Filters.eq("settings", guildModel.getGuildId()));
@@ -147,6 +210,9 @@ public class GuildCacheManager {
         MongoAPI.getCollection("DiscordEngine").insertOne(updateGuildChannels(guildModel, document));
     }
 
+    /**
+     * Update all GuildModels in the database
+     */
     public void updateGuilds() {
         for (GuildModel guildModel : guildCache.values()) {
             updateGuild(guildModel);
@@ -175,6 +241,11 @@ public class GuildCacheManager {
         return document;
     }
 
+    /**
+     * Gets the Timer for the backups
+     *
+     * @return returns the timer
+     */
     public Timer getBackupTimer() {
 
         timer = new Timer();
