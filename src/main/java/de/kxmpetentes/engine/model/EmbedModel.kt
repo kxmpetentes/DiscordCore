@@ -56,8 +56,8 @@ data class EmbedModel(
         textChannel.sendMessage(embedBuilder.build()).delay(Duration.ofSeconds(delay)).flatMap(Message::delete).queue()
     }
 
-    fun reply(message: Message) {
-        message.reply(embedBuilder.build()).queue()
+    fun reply(message: Message, mention: Boolean) {
+        message.reply(embedBuilder.build()).mentionRepliedUser(mention).queue()
     }
 
     fun replyAndDeleteLater(message: Message, delay: Long) {
