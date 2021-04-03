@@ -2,6 +2,9 @@ package de.kxmpetentes.engine.model
 
 import java.awt.Color
 
+/**
+ * @param colors        all colors to be added
+ */
 class ColorModel(vararg colors: Color) {
 
     private val colorArrayList: ArrayList<Color> = ArrayList()
@@ -14,6 +17,9 @@ class ColorModel(vararg colors: Color) {
         }
     }
 
+    /**
+     * @return          random color
+     */
     fun getColor(): Color {
         return colorArrayList.random()
     }
