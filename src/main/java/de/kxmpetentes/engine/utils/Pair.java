@@ -3,8 +3,6 @@ package de.kxmpetentes.engine.utils;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 /**
  * @author kxmpetentes
  * Website: kxmpetentes.de
@@ -14,7 +12,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class Pair<K, T> implements Serializable {
+public class Pair<K, T> {
 
     private K first;
     private T second;
@@ -31,11 +29,6 @@ public class Pair<K, T> implements Serializable {
     public Pair(K first, T second) {
         this.first = first;
         this.second = second;
-    }
-
-    @Override
-    public String toString() {
-        return first.getClass().getSimpleName() + "=" + second.getClass().getSimpleName();
     }
 
 }
