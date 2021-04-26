@@ -1,4 +1,4 @@
-package de.kxmpetentes.engine.language
+package de.kxmpetentes.engine.utils.language
 
 enum class LanguageTypes(s: String, i: Int) {
 

@@ -1,13 +1,13 @@
 package de.kxmpetentes.engine;
 
 import de.kxmpetentes.engine.command.CommandManager;
-import de.kxmpetentes.engine.json.ConfigProvider;
-import de.kxmpetentes.engine.json.Configuration;
 import de.kxmpetentes.engine.manager.GuildCacheManager;
 import de.kxmpetentes.engine.manager.MongoAPI;
 import de.kxmpetentes.engine.manager.TopGGManager;
 import de.kxmpetentes.engine.model.ConsoleColors;
 import de.kxmpetentes.engine.utils.Pair;
+import de.kxmpetentes.engine.utils.config.ConfigProvider;
+import de.kxmpetentes.engine.utils.config.Configuration;
 import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.api.JDA;

@@ -1,4 +1,4 @@
-package de.kxmpetentes.engine.build
+package de.kxmpetentes.engine.utils.build
 
 import de.kxmpetentes.engine.DiscordCore
 import de.kxmpetentes.engine.command.Command
@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent
 import net.dv8tion.jda.api.sharding.ShardManager
 import javax.security.auth.login.LoginException
 
-class MongoDBBotBuilder {
+class DefaultBotBuilder {
 
     private val discordCore: DiscordCore
     private val token: String
@@ -41,7 +41,6 @@ class MongoDBBotBuilder {
         this.eventListeners = ArrayList()
         this.commandExecutors = ArrayList()
 
-        discordCore.enableMongoDB()
     }
 
     /**
@@ -97,14 +96,16 @@ class MongoDBBotBuilder {
      */
     @Throws(LoginException::class)
     fun getDefaultShardManager(): ShardManager {
-        if (gatewayInents.isNotEmpty() && eventListeners.isNotEmpty() && commandExecutors.isNotEmpty()) {
-            return BotCreateManager(discordCore,
+        if (gatewayInents.isNotEmpty() || eventListeners.isNotEmpty() || commandExecutors.isNotEmpty()) {
+            return BotCreateManager(
+                discordCore,
                 token,
                 onlineStatus,
                 activity,
                 gatewayInents,
                 eventListeners,
-                commandExecutors).defaultShardManager
+                commandExecutors
+            ).defaultShardManager
         }
         return BotCreateManager(token, activity, onlineStatus).defaultShardManager
     }
@@ -113,14 +114,16 @@ class MongoDBBotBuilder {
      * @return the commandshardmanager of the bot
      */
     fun getCommandShardManager(): ShardManager {
-        if (gatewayInents.isNotEmpty() && eventListeners.isNotEmpty() && commandExecutors.isNotEmpty()) {
-            return BotCreateManager(discordCore,
+        if (gatewayInents.isNotEmpty() || eventListeners.isNotEmpty() || commandExecutors.isNotEmpty()) {
+            return BotCreateManager(
+                discordCore,
                 token,
                 onlineStatus,
                 activity,
                 gatewayInents,
                 eventListeners,
-                commandExecutors).commandShardManager
+                commandExecutors
+            ).commandShardManager
         }
         return BotCreateManager(token, activity, onlineStatus).commandShardManager
     }

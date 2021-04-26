@@ -1,4 +1,4 @@
-package de.kxmpetentes.engine.json;
+package de.kxmpetentes.engine.utils.config;
 
 import org.json.JSONObject;
 
