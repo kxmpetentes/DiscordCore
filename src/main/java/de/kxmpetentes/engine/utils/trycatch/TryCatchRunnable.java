@@ -19,6 +19,7 @@ public interface TryCatchRunnable {
             try {
                 run();
             } catch (final Throwable ignored) {
+                //Ignore the exception
             }
         };
     }
