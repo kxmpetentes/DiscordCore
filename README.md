@@ -50,5 +50,5 @@ dependencies {
 
 <h3>Docs</h3>
 
-[Documentation & Examples](https://github.com/kxmpetentes/DiscordCore/wiki)
+[Documentation](https://github.com/kxmpetentes/DiscordCore/wiki)
 
