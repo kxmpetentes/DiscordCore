@@ -11,8 +11,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import org.bson.Document;
 
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * @author kxmpetentes
@@ -28,8 +26,6 @@ public class GuildCacheManager {
     private final HashMap<Long, GuildModel> guildCache = new HashMap<>();
     private final DiscordCore discordCore;
 
-    private Timer timer;
-
     /**
      * GuildCacheManager constructor specific to manages guilds in MongoDB
      *
@@ -40,7 +36,8 @@ public class GuildCacheManager {
         this.discordCore = discordCore;
 
         initCache(jda);
-        timer = getBackupTimer();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(this::updateGuilds));
     }
 
     /**
@@ -239,26 +236,5 @@ public class GuildCacheManager {
         guildModel.setGuildDocument(document);
 
         return document;
-    }
-
-    /**
-     * Gets the Timer for the backups
-     *
-     * @return returns the timer
-     */
-    public Timer getBackupTimer() {
-
-        timer = new Timer();
-
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                updateGuilds();
-
-            }
-        }, 1, 1000L * 60);
-
-        return timer;
     }
 }
