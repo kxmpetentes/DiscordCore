@@ -15,7 +15,7 @@ Maven
     <!-- Discord Core Repo -->
     <repository>
         <id>discordcore-repo</id>
-        <url>https://spotifynutzer.jfrog.ip/artifactory/DiscordCore</url>
+        <url>https://repo.kxmpetentes.de/artifactory/DiscordCore</url>
     </repository>
 
 </repositories>
@@ -26,7 +26,7 @@ Maven
     <!-- DiscordEngine -->
     <dependency>
         <groupId>de.kxmpetentes</groupId>
-        <artifactId>DiscordEngine</artifactId>
+        <artifactId>DiscordCore</artifactId>
         <version>VERSION</version>
     </dependency>
 
@@ -38,13 +38,13 @@ Gradle
 allprojects {
     repositories {
         ...
-        maven { url 'https://spotifynutzer.jfrog.io/artifactory/DiscordCore/' }
+        maven { url 'https://repo.kxmpetentes.de/artifactory/DiscordCore/' }
 	}
 }
 ````
 ````gradle
 dependencies {
-    implementation 'de.kxmpetentes:DiscordEngine:VERSION'
+    implementation 'de.kxmpetentes:DiscordCore:VERSION'
 }
 ````
 
