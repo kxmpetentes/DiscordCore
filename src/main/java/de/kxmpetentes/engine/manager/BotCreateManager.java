@@ -3,10 +3,7 @@ package de.kxmpetentes.engine.manager;
 import de.kxmpetentes.engine.DiscordCore;
 import de.kxmpetentes.engine.command.Command;
 import de.kxmpetentes.engine.command.CommandManager;
-import de.kxmpetentes.engine.listener.CommandListener;
-import de.kxmpetentes.engine.listener.JoinGuildListener;
-import de.kxmpetentes.engine.listener.QuitGuildListener;
-import de.kxmpetentes.engine.listener.ShutdownListener;
+import de.kxmpetentes.engine.listener.*;
 import lombok.Getter;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -101,6 +98,7 @@ public class BotCreateManager {
         defaultShardManagerBuilder.setMemberCachePolicy(MemberCachePolicy.ONLINE);
 
         defaultShardManagerBuilder.addEventListeners(new CommandListener(discordCore));
+        defaultShardManagerBuilder.addEventListeners(new ButtonListener());
 
         if (discordCore.isMongoDBEnabled()) {
             defaultShardManagerBuilder.addEventListeners(new JoinGuildListener(discordCore));

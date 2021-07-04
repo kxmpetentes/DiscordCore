@@ -1,6 +1,7 @@
 package de.kxmpetentes.engine;
 
 import de.kxmpetentes.engine.command.CommandManager;
+import de.kxmpetentes.engine.manager.ButtonManager;
 import de.kxmpetentes.engine.manager.GuildCacheManager;
 import de.kxmpetentes.engine.manager.MongoAPI;
 import de.kxmpetentes.engine.manager.TopGGManager;
@@ -36,6 +37,7 @@ public class DiscordCore {
     private CommandManager commandManager;
     private TopGGManager topGGManager;
     private JDA jda;
+    private ButtonManager buttonManager;
     private GuildCacheManager guildCacheManager;
     private ConfigProvider configProvider = new ConfigProvider();
     private Logger logger = LoggerFactory.getLogger("DiscordCore");
@@ -45,6 +47,7 @@ public class DiscordCore {
 
         this.prefix = prefix;
         this.botIconURL = "";
+        this.buttonManager = new ButtonManager();
         this.commandManager = new CommandManager();
     }
 
