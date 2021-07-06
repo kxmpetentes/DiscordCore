@@ -138,7 +138,7 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>LATEST</version>
+            <version>4.3.0_293</version>
         </dependency>
 
         <!-- GSON -->
